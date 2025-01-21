@@ -1,13 +1,17 @@
 import { customElement, property, LitElement, html, css } from 'lit-element';
+import foto from '../public/foto.jpeg';
+import icoGithub from '../public/ico-github.png';
 
 @customElement('app-root')
 export class AppRoot extends LitElement {
-  @property() message = 'Learn LitElement';
+  @property() message = 'GitHub';
 
   static get styles() {
     return css`
       h1 {
-        font-size: 4rem;
+        font-size: 3rem;
+        color: #2973b2;
+        text-align: center;
       }
       .wrapper {
         display: flex;
@@ -15,12 +19,35 @@ export class AppRoot extends LitElement {
         align-items: center;
         flex-direction: column;
         height: 100vh;
-        background-color: #2196f3;
-        background: linear-gradient(315deg, #b4d2ea 0%, #2196f3 100%);
+        background: linear-gradient(315deg, #f2efe7 0%, #9acbd0 100%);
         font-size: 24px;
+        color: #2973b2;
+      }
+      .photo {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 5px solid #48a6a7;
+        margin-bottom: 1rem;
       }
       .link {
-        color: white;
+        color: #48a6a7;
+        text-decoration: none;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .link:hover {
+        color: #2973b2;
+      }
+      .github-icon {
+        width: 24px;
+        height: 24px;
+      }
+      p {
+        color: #2973b2;
+        text-align: center;
       }
     `;
   }
@@ -28,14 +55,16 @@ export class AppRoot extends LitElement {
   render() {
     return html`
       <div class="wrapper">
-        <h1>LitElement + Snowpack</h1>
-        <p>Edit <code>src/app-root.js</code> and save to reload.</p>
+        <img class="photo" src="${foto}" alt="Your Profile Photo" />
+        <h1>KAREN BRIGITH GONZAGA RIVAS</h1>
+        <p>Programadora apasionada por el desarrollo web. Estudiante de Ingeniería en Computación. Lista para nuevos desafíos. 🚀</p>
         <a
           class="link"
-          href="https://lit-element.polymer-project.org/"
+          href="https://github.com/KBGR55?tab=repositories"
           target="_blank"
           rel="noopener noreferrer"
         >
+          <img class="github-icon" src="${icoGithub}" alt="GitHub Icon" />
           ${this.message}
         </a>
       </div>
