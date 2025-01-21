@@ -57,7 +57,11 @@ export class AppRoot extends LitElement {
       <div class="wrapper">
         <img class="photo" src="${foto}" alt="Your Profile Photo" />
         <h1>KAREN BRIGITH GONZAGA RIVAS</h1>
-        <p>Programadora apasionada por el desarrollo web. Estudiante de Ingeniería en Computación. Lista para nuevos desafíos. 🚀</p>
+        <p>
+          Programadora apasionada por el desarrollo web. 
+          <strong> Estudiante de Ingeniería en Computación.</strong>
+        </p>
+        <p>Lista para nuevos desafíos. 🚀</p>
         <a
           class="link"
           href="https://github.com/KBGR55?tab=repositories"
