@@ -5,11 +5,11 @@ on:
     secrets:
       image-tag:
         required: true
-
+        
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read  # Solo permisos de lectura
+  pages: write    # Permiso para desplegar a GitHub Pages (si corresponde)
+  id-token: none  # Sin necesidad de acceso al id-token
 
 jobs:
   deploy:

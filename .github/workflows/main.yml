@@ -1,17 +1,16 @@
-name: CI/CD Pipeline with DAST, SCA, and Deployment
+name: 01 - Main CI / CD Pipeline
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
   workflow_dispatch:
 
+# Otorgamos los permisos globalmente
 permissions:
   contents: read
-  issues: write
+  issues: read
   checks: write
   pull-requests: write
   actions: read
@@ -20,28 +19,21 @@ permissions:
 
 jobs:
   build:
-    name: Build Docker Image
-    uses: ./.github/workflows/build-docker.yml
-    secrets: inherit
-    with:
-      image-tag: "portafolio:latest"
+    name: Build
+    uses: ./.github/workflows/build.yml
+    secrets: inherit  # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idsecretsinherit
 
-  sca-sonarcloud:
-    name: SonarCloud Analysis
+  #Creación de Docker
+  docker:
     needs: build
-    uses: ./.github/workflows/sca-sonarcloud.yml
+    name: Build docker image
+    uses: ./.github/workflows/docker.yml
     secrets: inherit
 
-  dast-scan:
+  dast:
+    needs: [build,docker]
     name: DAST Scan
-    needs: sca-sonarcloud
-    uses: ./.github/workflows/dast-scan.yml
+    uses: ./.github/workflows/dast.yml
     secrets: inherit
     with:
-      image-tag: portafolio:latest
-
-  deploy:
-    name: Deploy
-    needs: dast-scan
-    uses: ./.github/workflows/deploy.yml
-    secrets: inherit
+      image-tag: ${{ needs.docker.outputs.image-tag }}
