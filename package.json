@@ -17,6 +17,6 @@
     "@snowpack/plugin-dotenv": "^2.1.0",
     "jest": "^29.7.0",
     "prettier": "^2.2.1",
-    "snowpack": "^3.3.7"
+    "snowpack": "^3.2.2"
   }
 }
