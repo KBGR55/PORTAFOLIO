@@ -1,57 +1,68 @@
 name: 06 Build docker image
 
 on:
-    workflow_dispatch:
-    workflow_call:
-        outputs:
-            image-tag:
-                description: "The tag of my image test"
-                value: ${{ jobs.docker.outputs.image-tag }}
+  workflow_dispatch:
+  workflow_call:
+    outputs:
+      image-tag:
+        description: "The tag of my image test"
+        value: ${{ jobs.docker.outputs.image-tag }}
 
 env:
-    REGISTRY: ghcr.io
-    IMAGE_NAME: ${{ github.repository }}
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-    docker:
-        outputs:
-            image-tag: ${{ steps.meta.outputs.tags }}
-        runs-on: ubuntu-latest
-        permissions:
-            contents: read
-            packages: write
-        
-        steps:
-        - uses: actions/checkout@v3
-        - name: Download application binary
-          uses: actions/download-artifact@v3.0.0
-          with:
-            name: Application-Binary
-            path: target
-        - name: Log in to the Container registry
-          uses: docker/login-action@v2.1.0
-          with:
-            registry: ${{ env.REGISTRY }}
-            username: ${{ github.actor }}
-            password: ${{ secrets.GITHUB_TOKEN }}
-        - name: Extract metadata (tags, labels) for Docker
-          id: meta
-          uses: docker/metadata-action@v4.1.0
-          with:
-            images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-            tags: |
-              type=semver,pattern={{version}}
-              type=semver,pattern={{major}}.{{minor}}
-              type=semver,pattern={{major}}
-              type=ref,event=pr
-              type=ref,event=tag
-              type=ref,event=branch
-              type=schedule,pattern=main
-    
-        - name: Build and push Docker image
-          uses: docker/build-push-action@v3.2.0
-          with:
-            context: .
-            push: true
-            tags: ${{ steps.meta.outputs.tags }}
-            labels: ${{ steps.meta.outputs.labels }}
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build Application
+        run: |
+          mkdir -p target
+          echo "Sample binary" > target/application-binary
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Application-Binary
+          path: target/application-binary
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download application binary
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: Application-Binary
+          path: target
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2.1.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v4.1.0
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=ref,event=pr
+            type=ref,event=tag
+            type=ref,event=branch
+            type=schedule,pattern=main
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v3.2.0
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
