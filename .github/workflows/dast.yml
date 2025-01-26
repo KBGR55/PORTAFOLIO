@@ -25,14 +25,13 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Validate IMAGE_TAG input
         run: |
-          if [ -z "${{ inputs.image-tag }}" ]; then
-            echo "Error: IMAGE_TAG input is empty."
-            exit 1
-          fi
-          echo "IMAGE_TAG=${{ inputs.image-tag }}" >> $GITHUB_ENV
+            if [ -z "${{ inputs.image-tag }}" ]; then
+              echo "Error: IMAGE_TAG input is empty."
+              exit 1
+            fi
+            echo "IMAGE_TAG=${{ inputs.image-tag }}" >> $GITHUB_ENV
 
       - name: Start demo app container
         run: |

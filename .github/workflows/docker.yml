@@ -46,3 +46,5 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      - name: Set output image tag
+        run: echo "image-tag=${{ steps.meta.outputs.tags }}" >> $GITHUB_ENV

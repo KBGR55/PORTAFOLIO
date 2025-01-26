@@ -23,7 +23,6 @@ jobs:
     uses: ./.github/workflows/build.yml
     secrets: inherit  # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idsecretsinherit
 
-  #Creación de Docker
   docker:
     needs: build
     name: Build docker image
@@ -31,7 +30,7 @@ jobs:
     secrets: inherit
 
   dast:
-    needs: [build,docker]
+    needs: [build, docker]
     name: DAST Scan
     uses: ./.github/workflows/dast.yml
     secrets: inherit
