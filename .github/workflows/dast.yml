@@ -7,12 +7,16 @@ on:
         type: string
         description: 'The name of the docker image to scan'
         required: true
+        default: 'ghcr.io/kbgr55/portafolio:main'  
+
   workflow_call:
     inputs:
       image-tag:
         type: string
         description: 'The name of the docker image to scan'
         required: true
+        default: 'ghcr.io/kbgr55/portafolio:main' 
+
 
 jobs:
   dast-scan:
