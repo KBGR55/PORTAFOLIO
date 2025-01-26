@@ -41,7 +41,7 @@ jobs:
       image-tag: portafolio:latest
 
   deploy:
-    name: Deploy to Vercel
+    name: Deploy
     needs: dast-scan
     uses: ./.github/workflows/deploy.yml
     secrets: inherit

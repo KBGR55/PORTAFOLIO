@@ -13,25 +13,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Clonar el repositorio
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Construir la imagen de Docker
       - name: Build Docker Image
         run: docker build -t ${{ inputs.image-tag }} .
-
-      # Iniciar el contenedor de la aplicación
+        
       - name: Start Docker container
         run: |
           docker rm -f demoApp || true
           docker run -d -p 3000:3000 --name demoApp ${{ inputs.image-tag }}
 
-      # Verificar si el contenedor está corriendo
       - name: Verify container status
         run: docker ps
 
-      # Verificar si el endpoint del contenedor está activo
       - name: Verify container endpoint
         run: |
           for i in {1..10}; do

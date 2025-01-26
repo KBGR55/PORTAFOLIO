@@ -1,37 +1,39 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
+    secrets:
+      image-tag:
+        required: true
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
     name: Deploy to GitHub Pages
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: |
+          npm install
+          npm run build
 
-    - name: Build project
-      run: npm run build
-
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build
-
-    - name: Show deployment URL
-      run: |
-          echo "Your site is live at:"
-          echo "https://${{ github.repository_owner }}.github.io/${{ github.repository }}/"
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: build  
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
