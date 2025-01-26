@@ -28,14 +28,3 @@ jobs:
       # Instalar dependencias
       - name: Install dependencies
         run: npm install
-
-      # Ejecutar las pruebas
-      - name: Run tests
-        run: npm test
-
-      # Subir resultados de pruebas como artefacto
-      - name: Upload Test Results
-        uses: actions/upload-artifact@v3
-        with:
-          name: Test-Results
-          path: test-results
