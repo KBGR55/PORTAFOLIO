@@ -1,0 +1,47 @@
+name: CI/CD Pipeline with DAST, SCA, and Deployment
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  checks: write
+  pull-requests: write
+  actions: read
+  security-events: write
+  packages: write
+
+jobs:
+  build:
+    name: Build Docker Image
+    uses: ./.github/workflows/build-docker.yml
+    secrets: inherit
+    with:
+      image-tag: "portafolio:latest"
+
+  sca-sonarcloud:
+    name: SonarCloud Analysis
+    needs: build
+    uses: ./.github/workflows/sca-sonarcloud.yml
+    secrets: inherit
+
+  dast-scan:
+    name: DAST Scan
+    needs: sca-sonarcloud
+    uses: ./.github/workflows/dast-scan.yml
+    secrets: inherit
+    with:
+      image-tag: portafolio:latest
+
+  deploy:
+    name: Deploy to Vercel
+    needs: dast-scan
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit

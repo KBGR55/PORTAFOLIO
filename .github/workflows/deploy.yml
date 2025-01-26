@@ -3,10 +3,11 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # Cambia "main" por tu rama principal
+      - main
 
 jobs:
-  build-and-deploy:
+  deploy:
+    name: Deploy to GitHub Pages
     runs-on: ubuntu-24.04
 
     steps:
@@ -16,7 +17,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18' 
+        node-version: '18'
 
     - name: Install dependencies
       run: npm install
@@ -29,7 +30,6 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./build
-
 
     - name: Show deployment URL
       run: |
