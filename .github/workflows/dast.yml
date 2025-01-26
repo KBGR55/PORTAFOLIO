@@ -7,7 +7,6 @@ on:
         type: string
         description: 'The name of the docker image to scan'
         required: true
-
   workflow_call:
     inputs:
       image-tag:
@@ -17,7 +16,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  APP_PORT: 9080
+  APP_PORT: 3000  # Actualiza el puerto a 3000
 
 jobs:
   dast-scan:
@@ -42,26 +41,26 @@ jobs:
       - name: Start demo app container
         run: |
           docker rm demoApp || true
-          docker run -d -p ${{ env.APP_PORT }}:9080 --name demoApp ${{ inputs.image-tag }}
+          docker run -d -p 3000:3000--name demoApp ${{ inputs.image-tag }}  # Usa el puerto 3000
 
       - name: Wait for container to start
         run: |
-          echo "Waiting for container to be ready on port ${{ env.APP_PORT }}..."
-          timeout 600 bash -c 'while [[ "$(curl -s -o /dev/null -w "%{http_code}" localhost:${{ env.APP_PORT }})" != "200" ]]; do sleep 5; done' || { echo "Container not ready after 600 seconds."; docker logs demoApp; exit 1; }
+          echo "Waiting for container to be ready on port 3000..."
+          timeout 600 bash -c 'while [[ "$(curl -s -o /dev/null -w "%{http_code}" localhost:3000)" != "200" ]]; do sleep 5; done' || { echo "Container not ready after 600 seconds."; docker logs demoApp; exit 1; }
 
       - name: Test container
-        run: curl -s localhost:${{ env.APP_PORT }}/health
+        run: curl -s localhost:3000/health
 
       - name: Pull and Run ZAP
         run: |
           docker run --rm -v $(pwd):/zap/wrk/:rw owasp/zap2docker-weekly zap-full-scan.py \
-          -t http://localhost:5006 -r zap_report.html || exit 0
+          -t http://localhost:3000-r zap_report.html || exit 0
 
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
         with:
           name: DAST_Report
-          path: report_html.html
+          path: zap_report.html
 
       - name: Stop and clean up Docker container
         if: always()
