@@ -7,7 +7,6 @@ on:
       - '**/*.txt'
   workflow_dispatch:
 
-# Otorgamos los permisos globalmente
 permissions:
   contents: read
   issues: read
@@ -21,7 +20,7 @@ jobs:
   build:
     name: Build
     uses: ./.github/workflows/build.yml
-    secrets: inherit  # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idsecretsinherit
+    secrets: inherit # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idsecretsinherit
 
   docker:
     needs: build
@@ -36,3 +35,33 @@ jobs:
     secrets: inherit
     with:
       image-tag: ${{ needs.docker.outputs.image-tag }}
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: dast
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16' # Ajusta la versión de Node.js si es necesario
+
+      - name: Install dependencies
+        run: |
+          npm install  # O usa `yarn install` si es lo que utilizas
+
+      - name: Build the project
+        run: |
+          npm run build  # Asegúrate de que tu script de build esté correctamente configurado
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages # Puedes usar 'main' si prefieres desplegar en la rama principal
+          folder: build # Asegúrate de que esta carpeta esté configurada correctamente para tu construcción, como 'dist' o 'public'
+
+      - name: Clean up
+        run: echo "Cleanup complete"

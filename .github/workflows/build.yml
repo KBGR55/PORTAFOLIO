@@ -11,7 +11,7 @@ jobs:
       issues: read
       checks: write
       pull-requests: write
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       # Clonar el repositorio

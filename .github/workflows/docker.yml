@@ -5,7 +5,7 @@ on:
   workflow_call:
     outputs:
       image-tag:
-        description: "The tag of my image test"
+        description: 'The tag of my image test'
         value: ${{ jobs.docker.outputs.image-tag }}
 
 env:
@@ -14,12 +14,12 @@ env:
 
 jobs:
   docker:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v3  # Para obtener tu código fuente del repositorio
+      - uses: actions/checkout@v3 # Para obtener tu código fuente del repositorio
       - name: Log in to the Container registry
         uses: docker/login-action@v2.1.0
         with:

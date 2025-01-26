@@ -5,16 +5,16 @@ on:
     secrets:
       image-tag:
         required: true
-        
+
 permissions:
-  contents: read  # Solo permisos de lectura
-  pages: write    # Permiso para desplegar a GitHub Pages (si corresponde)
-  id-token: none  # Sin necesidad de acceso al id-token
+  contents: read # Solo permisos de lectura
+  pages: write # Permiso para desplegar a GitHub Pages (si corresponde)
+  id-token: none # Sin necesidad de acceso al id-token
 
 jobs:
   deploy:
     name: Deploy to GitHub Pages
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout code
@@ -34,6 +34,6 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: build  
+          folder: build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
