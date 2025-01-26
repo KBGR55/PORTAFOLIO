@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # Cambia "main" por la rama principal de tu proyecto
+      - main # Cambia "main" por tu rama principal
 
 jobs:
   build-and-deploy:
@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18' # Cambia la versión según tus necesidades
+        node-version: '18' # Cambia según tu versión de Node.js
 
     - name: Install dependencies
       run: npm install
@@ -28,4 +28,9 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build # Cambia según la carpeta de salida de tu proyecto
+        publish_dir: ./build
+
+    - name: Show deployment URL
+      run: |
+          echo "Your site is live at:"
+          echo "https://${{ github.repository_owner }}.github.io/${{ github.repository }}/"
