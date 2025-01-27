@@ -38,6 +38,5 @@ jobs:
 
   deploy:
     name: Deploy to GitHub Pages
-    needs: [build, docker, dast]
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
