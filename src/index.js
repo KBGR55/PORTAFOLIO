@@ -1,6 +1,6 @@
 import { customElement, property, LitElement, html, css } from 'lit-element';
-import foto from '../public/PORTAFOLIO/foto.jpeg';
-import icoGithub from '../public/PORTAFOLIO/ico-github.png';
+import foto from '../public/foto.jpeg';
+import icoGithub from '../public/ico-github.png';
 
 @customElement('app-root')
 export class AppRoot extends LitElement {
@@ -55,7 +55,7 @@ export class AppRoot extends LitElement {
   render() {
     return html`
       <div class="wrapper">
-        <img class="photo" src="${foto}" alt="Your Profile Photo" />
+        <img class="photo" src="/PORTAFOLIO/foto.jpeg" alt="Your Profile Photo" />
         <h1>KAREN BRIGITH GONZAGA RIVAS</h1>
         <p>
           Programadora apasionada por el desarrollo web. 
@@ -68,7 +68,7 @@ export class AppRoot extends LitElement {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img class="github-icon" src="${icoGithub}" alt="GitHub Icon" />
+          <img class="github-icon" src="/PORTAFOLIO/ico-github.png" alt="GitHub Icon" />
           ${this.message}
         </a>
       </div>
