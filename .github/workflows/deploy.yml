@@ -7,9 +7,10 @@ on:
         required: true
 
 permissions:
-  contents: read # Solo permisos de lectura
-  pages: write # Permiso para desplegar a GitHub Pages (si corresponde)
-  id-token: none # Sin necesidad de acceso al id-token
+  contents: read
+  issues: write
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
