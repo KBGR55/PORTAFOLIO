@@ -1,13 +1,15 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
+    secrets:
+      image-tag:
+        required: true
 
 permissions:
-  contents: write
-  pages: write
+  contents: read # Solo permisos de lectura
+  pages: write # Permiso para desplegar a GitHub Pages (si corresponde)
+  id-token: none # Sin necesidad de acceso al id-token
 
 jobs:
   deploy:
@@ -22,7 +24,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-
+          
       - name: Install dependencies
         run: |
           npm install
@@ -31,8 +33,8 @@ jobs:
       - name: Comprobación del cumplimiento de la licencia
         uses: mikaelvesavuori/license-compliance-action@v1
         with:
-          allow_licenses: "MIT, ISC, 0BSD, BSD-2-Clause, BSD-3-Clause, Apache-2.0"
-          nested_field: "licenseString"
+           allow_licenses: "https://www.mockachino.com/{{MIT;ISC;0BSD;BSD-2-Clause;BSD-3-Clause;Apache-2.0}}/licenses"
+           nested_field: "licenseString"
 
       - name: Analisis de desempeño Lighthouse 
         uses: treosh/lighthouse-ci-action@v9
@@ -41,13 +43,12 @@ jobs:
 
       - name: Ejecutar prueba de carga Apache Benchmark
         run: |
-          sudo apt-get install -y apache2-utils
           ab -n 100 -c 10 https://kbgr55.github.io/PORTAFOLIO/
 
       - name: Escaneo ZAP
         uses: zaproxy/action-full-scan@v0.12.0
         with:
-          target: "https://kbgr55.github.io/PORTAFOLIO/"
+         target: "https://kbgr55.github.io/PORTAFOLIO/"
         env:
           JAVA_OPTS: "-Xmx512m"
 
@@ -56,3 +57,5 @@ jobs:
         with:
           branch: gh-pages
           folder: build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
