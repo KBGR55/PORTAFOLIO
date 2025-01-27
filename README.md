@@ -4,7 +4,6 @@
 
 Este es el repositorio para mi portafolio, que incluye proyectos desarrollados con tecnologías modernas y un pipeline CI/CD automatizado.
 
-
 ## Scripts disponibles  
 
 1. **Instalar dependencias**  
@@ -24,14 +23,3 @@ Este es el repositorio para mi portafolio, que incluye proyectos desarrollados c
    ```bash
    npm run build
    ```
-
-## Despliegue  
-El portafolio está desplegado en Netlify y puedes visitarlo en el siguiente enlace:  
-[Portafolio Personal](https://graceful-sunburst-02102e.netlify.app/)  
-
-## Características  
-- Diseño limpio y profesional.  
-- Componentes personalizables con LitElement.  
-- Despliegue continuo para actualizaciones automáticas.  
-
-¡Explora y personaliza este proyecto para crear tu propio portafolio profesional! 😊  

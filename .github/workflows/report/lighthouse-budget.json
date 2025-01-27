@@ -1,0 +1,13 @@
+{
+    "budget": [
+      {
+        "resourceCounts": {
+          "total": 100
+        },
+        "performance": {
+          "budget": 0.5
+        }
+      }
+    ]
+  }
+  

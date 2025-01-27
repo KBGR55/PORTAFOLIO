@@ -42,7 +42,7 @@ jobs:
         uses: treosh/lighthouse-ci-action@v9
         with:
           urls: https://kbgr55.github.io/PORTAFOLIO/ 
-          budgetPath: ./lighthouse-report  
+          budgetPath: .report/lighthouse-report  
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
