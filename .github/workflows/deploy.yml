@@ -7,10 +7,10 @@ on:
         required: true
 
 permissions:
-  contents: read
-  issues: write
+  contents: write
   pages: write
-  id-token: write
+  id-token: none
+  issues: none
 
 jobs:
   deploy:
@@ -34,8 +34,8 @@ jobs:
       - name: Comprobación del cumplimiento de la licencia
         uses: mikaelvesavuori/license-compliance-action@v1
         with:
-           allow_licenses: "https://www.mockachino.com/{{MIT;ISC;0BSD;BSD-2-Clause;BSD-3-Clause;Apache-2.0}}/licenses"
-           nested_field: "licenseString"
+          allow_licenses: "https://www.mockachino.com/{{MIT;ISC;0BSD;BSD-2-Clause;BSD-3-Clause;Apache-2.0}}/licenses"
+          nested_field: "licenseString"
 
       - name: Analisis de desempeño Lighthouse 
         uses: treosh/lighthouse-ci-action@v9
@@ -49,7 +49,7 @@ jobs:
       - name: Escaneo ZAP
         uses: zaproxy/action-full-scan@v0.12.0
         with:
-         target: "https://kbgr55.github.io/PORTAFOLIO/"
+          target: "https://kbgr55.github.io/PORTAFOLIO/"
         env:
           JAVA_OPTS: "-Xmx512m"
 
