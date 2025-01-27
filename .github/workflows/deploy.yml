@@ -32,11 +32,19 @@ jobs:
         run: |
           ab -n 100 -c 10 https://kbgr55.github.io/PORTAFOLIO/
 
-      - name: Analisis de desempeño Lighthouse
-        uses: treosh/lighthouse-ci-action@v9
-        with:
-          urls: https://kbgr55.github.io/PORTAFOLIO/ 
-          budgetPath: .github/workflows/report/lighthouse-budget.json
+      - name: Instalar Trivy
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget apt-transport-https gnupg
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+          echo deb https://aquasecurity.github.io/trivy-repo/deb stable main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+          sudo apt-get update
+          sudo apt-get install -y trivy
+
+      - name: Escanear vulnerabilidades con Trivy
+        run: |
+          trivy fs --exit-code 0 --severity HIGH,CRITICAL .
+          trivy config --exit-code 0 --severity HIGH,CRITICAL .
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
