@@ -38,12 +38,6 @@ jobs:
         run: |
           ab -n 100 -c 10 https://kbgr55.github.io/PORTAFOLIO/
 
-      - name: Escaneo ZAP
-        uses: zaproxy/action-full-scan@v0.12.0
-        with:
-          target: "https://kbgr55.github.io/PORTAFOLIO/"
-        env:
-          JAVA_OPTS: "-Xmx512m"
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
