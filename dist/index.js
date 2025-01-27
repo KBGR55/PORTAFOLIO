@@ -88,7 +88,7 @@ export let AppRoot = _decorate([customElement('app-root')], function (_initializ
       value: function render() {
         return html`
       <div class="wrapper">
-        <img class="photo" src="${foto}" alt="Your Profile Photo" />
+        <img class="photo" src="/PORTAFOLIO/foto.jpeg" alt="Your Profile Photo" />
         <h1>KAREN BRIGITH GONZAGA RIVAS</h1>
         <p>
           Programadora apasionada por el desarrollo web. 
@@ -101,7 +101,7 @@ export let AppRoot = _decorate([customElement('app-root')], function (_initializ
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img class="github-icon" src="${icoGithub}" alt="GitHub Icon" />
+          <img class="github-icon" src="/PORTAFOLIO/ico-github.png" alt="GitHub Icon" />
           ${this.message}
         </a>
       </div>
