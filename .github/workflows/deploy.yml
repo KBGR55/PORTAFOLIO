@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-          
+
       - name: Install dependencies
         run: |
           npm install
@@ -38,6 +38,11 @@ jobs:
         run: |
           ab -n 100 -c 10 https://kbgr55.github.io/PORTAFOLIO/
 
+      - name: Analisis de desempeño Lighthouse
+        uses: treosh/lighthouse-ci-action@v9
+        with:
+          urls: https://kbgr55.github.io/PORTAFOLIO/ 
+          budgetPath: ./lighthouse-report  
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
