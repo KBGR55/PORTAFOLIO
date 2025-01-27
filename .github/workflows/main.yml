@@ -37,7 +37,7 @@ jobs:
       image-tag: ${{ needs.docker.outputs.image-tag }}
 
   deploy:
-    needs: [build, docker, dast]
     name: Deploy to GitHub Pages
+    needs: [build, docker, dast]
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
