@@ -1,18 +1,9 @@
-# Portafolio Personal 🚀
-Repositorio del portafolio personal desarrollado con LitElement, que utiliza componentes web modernos y entrega continua a través de Netlify. Incluye despliegues automáticos, un diseño elegante y funciones personalizables para destacar habilidades y proyectos.
+# Portafolio
 
-## Tabla de contenido
-- [Tecnologías utilizadas](#tecnolog%C3%ADas-utilizadas)
-- [Scripts disponibles](#scripts-disponibles)
-  - [Instalar dependencias](#instalar-dependencias)
-  - [Iniciar el servidor de desarrollo](#iniciar-el-servidor-de-desarrollo)
-  - [Generar una build de producción](#generar-una-build-de-producci%C3%B3n)
-- [Despliegue](#despliegue)
-- [Características](#caracter%C3%ADsticas)
+[![01 - Main CI / CD Pipeline](https://github.com/KBGR55/PORTAFOLIO/actions/workflows/main.yml/badge.svg)](https://github.com/KBGR55/PORTAFOLIO/actions/workflows/main.yml)
 
-## Tecnologías utilizadas  
-- **LitElement**: Para crear componentes web modernos y reutilizables.  
-- **Netlify**: Para el despliegue continuo y hospedaje del proyecto.  
+Este es el repositorio para mi portafolio, que incluye proyectos desarrollados con tecnologías modernas y un pipeline CI/CD automatizado.
+
 
 ## Scripts disponibles  
 
