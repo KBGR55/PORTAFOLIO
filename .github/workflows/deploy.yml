@@ -32,14 +32,10 @@ jobs:
         run: |
           ab -n 100 -c 10 https://kbgr55.github.io/PORTAFOLIO/
 
-      - name: Instalar Trivy
+      - name: Instalar Trivy usando script oficial
         run: |
-          sudo apt-get update
-          sudo apt-get install -y wget apt-transport-https gnupg
-          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
-          echo deb https://aquasecurity.github.io/trivy-repo/deb stable main | sudo tee -a /etc/apt/sources.list.d/trivy.list
-          sudo apt-get update
-          sudo apt-get install -y trivy
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
+          sudo mv trivy /usr/local/bin/
 
       - name: Escanear vulnerabilidades con Trivy
         run: |
