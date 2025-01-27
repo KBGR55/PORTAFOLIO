@@ -41,7 +41,3 @@ jobs:
     name: Deploy
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
