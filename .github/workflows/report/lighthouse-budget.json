@@ -1,13 +1,16 @@
-{
-    "budget": [
-      {
-        "resourceCounts": {
-          "total": 100
+[
+    {
+      "path": "/",
+      "budget": [
+        {
+          "resource": "document",
+          "budget": 1000000
         },
-        "performance": {
-          "budget": 0.5
+        {
+          "resource": "script",
+          "budget": 50000
         }
-      }
-    ]
-  }
+      ]
+    }
+  ]
   
