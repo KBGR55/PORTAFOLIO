@@ -1189,7 +1189,7 @@ const parts = new WeakMap();
  *     container. Render options must *not* change between renders to the same
  *     container, as those changes will not effect previously rendered DOM.
  */
-const render = (result, container, options) => {
+const render$1 = (result, container, options) => {
   let part = parts.get(container);
   if (part === undefined) {
     removeNodes(container, container.firstChild);
@@ -1497,7 +1497,7 @@ const prepareTemplateStyles = (scopeName, renderedDOM, template) => {
  * non-shorthand names (for example `border` and `border-width`) is not
  * supported.
  */
-const render$1 = (result, container, options) => {
+const render = (result, container, options) => {
   if (!options || typeof options !== 'object' || !options.scopeName) {
     throw new Error('The `scopeName` option is required.');
   }
@@ -1509,7 +1509,7 @@ const render$1 = (result, container, options) => {
   // On first scope render, render into a fragment; this cannot be a single
   // fragment that is reused since nested renders can occur synchronously.
   const renderContainer = firstScopeRender ? document.createDocumentFragment() : container;
-  render(result, renderContainer, Object.assign({
+  render$1(result, renderContainer, Object.assign({
     templateFactory: shadyTemplateFactory(scopeName)
   }, options));
   // When performing first scope render,
@@ -2624,7 +2624,7 @@ LitElement['finalized'] = true;
  *
  * @nocollapse
  */
-LitElement.render = render$1;
+LitElement.render = render;
 /** @nocollapse */
 LitElement.shadowRootOptions = {
   mode: 'open'
