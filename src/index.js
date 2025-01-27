@@ -1,6 +1,6 @@
 import { customElement, property, LitElement, html, css } from 'lit-element';
-import foto from '../public/foto.jpeg';
-import icoGithub from '../public/ico-github.png';
+import foto from '../public/PORTAFOLIO/foto.jpeg';
+import icoGithub from '../public/PORTAFOLIO/ico-github.png';
 
 @customElement('app-root')
 export class AppRoot extends LitElement {
