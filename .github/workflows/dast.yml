@@ -5,7 +5,7 @@ on:
     inputs:
       image-tag:
         type: string
-        description: 'The name of the docker image to scan'
+        description: 'The name of the Docker image to scan'
         required: true
         default: 'ghcr.io/kbgr55/portafolio:main'
 
@@ -13,7 +13,7 @@ on:
     inputs:
       image-tag:
         type: string
-        description: 'The name of the docker image to scan'
+        description: 'The name of the Docker image to scan'
         required: true
         default: 'ghcr.io/kbgr55/portafolio:main'
 
@@ -32,7 +32,7 @@ jobs:
       - name: Start demo app container
         run: |
           docker rm demoApp || true
-          docker run -d -p 3000:3000 --name demoApp ghcr.io/kbgr55/portafolio:main  # Puerto 3000
+          docker run -d -p 3000:3000 --name demoApp ${{ inputs.image-tag }}
 
       - name: Wait for container to start
         run: |
@@ -52,6 +52,12 @@ jobs:
         with:
           name: DAST_Report
           path: zap_report.html
+
+      - name: Publish HTML report as workflow summary
+        if: always()
+        run: |
+          echo "### Dynamic Application Security Testing Report" >> $GITHUB_STEP_SUMMARY
+          echo "View the DAST report [here](./zap_report.html)." >> $GITHUB_STEP_SUMMARY
 
       - name: Stop and clean up Docker container
         if: always()
