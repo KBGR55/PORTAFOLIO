@@ -36,7 +36,7 @@ jobs:
 
       - name: Ejecutar prueba de carga Apache Benchmark
         run: |
-          ab -n 100 -c 10 https://kbgr55.github.io/PORTAFOLIO/
+          ab -n 150 -c 20 https://kbgr55.github.io/PORTAFOLIO/
     
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
