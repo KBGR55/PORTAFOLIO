@@ -5,8 +5,10 @@ on:
   workflow_call:
     outputs:
       image-tag:
-        description: 'The tag of my image test'
+        description: 'The tag of the built Docker image'
         value: ${{ jobs.docker.outputs.image-tag }}
+
+
 
 env:
   REGISTRY: ghcr.io
@@ -15,6 +17,8 @@ env:
 jobs:
   docker:
     runs-on: ubuntu-24.04
+    outputs:
+      image-tag: ${{ steps.set-tag.outputs.image-tag }}
     permissions:
       contents: read
       packages: write
@@ -47,4 +51,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       - name: Set output image tag
-        run: echo "image-tag=${{ steps.meta.outputs.tags }}" >> $GITHUB_ENV
+        id: set-tag
+        run: |
+          TAG=$(echo "${{ steps.meta.outputs.tags }}" | head -n1)
+          echo "image-tag=${TAG}" >> $GITHUB_OUTPUT

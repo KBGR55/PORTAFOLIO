@@ -31,8 +31,12 @@ jobs:
 
       - name: Start demo app container
         run: |
+          IMAGE_TAG="${{ inputs.image-tag }}"
+          if [ -z "$IMAGE_TAG" ]; then
+            IMAGE_TAG="ghcr.io/kbgr55/portafolio:main"
+          fi
           docker rm demoApp || true
-          docker run -d -p 3000:3000 --name demoApp ${{ inputs.image-tag }}
+          docker run -d -p 3000:3000 --name demoApp "$IMAGE_TAG"
 
       - name: Wait for container to start
         run: |
