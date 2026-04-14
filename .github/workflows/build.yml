@@ -16,13 +16,12 @@ jobs:
     steps:
       # Clonar el repositorio
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # Configurar Node.js 14
-      - name: Set up Node.js 16
-        uses: actions/setup-node@v3
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           cache: 'npm'
 
       # Instalar dependencias
