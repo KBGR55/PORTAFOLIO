@@ -1,0 +1,50 @@
+name: Security & Performance Scan
+
+# Solo se ejecuta manualmente desde la pestania "Actions" en GitHub.
+# No bloquea el deploy. Sube los reportes como artifacts descargables.
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'URL a escanear'
+        required: true
+        default: 'https://kbgr55.github.io/'
+
+jobs:
+  nikto:
+    name: Nikto vulnerability scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Nikto
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y nikto
+
+      - name: Run Nikto
+        run: nikto -h "${{ inputs.target }}" -output nikto-report.txt -Format txt || true
+
+      - name: Upload Nikto report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nikto-report
+          path: nikto-report.txt
+
+  benchmark:
+    name: Apache Benchmark load test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Apache utils
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y apache2-utils
+
+      - name: Run ab
+        run: ab -n 150 -c 20 "${{ inputs.target }}" | tee ab-report.txt
+
+      - name: Upload AB report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ab-report
+          path: ab-report.txt
