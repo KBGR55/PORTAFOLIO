@@ -3,7 +3,6 @@ import { sectionStyles, revealStyles } from '../shared-styles.js'
 import { RevealMixin } from '../reveal-mixin.js'
 import localCss from './app-experience.css?inline'
 import { template } from './app-experience.template.js'
-import './git-log-terminal.js'
 
 export class AppExperience extends RevealMixin(LitElement) {
   static get properties() {

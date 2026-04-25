@@ -1,132 +1,419 @@
 :host { display: block; }
 
-.edu-card {
-  background: var(--black-700);
-  border: 1px solid rgba(139, 92, 246, 0.1);
-  border-radius: 16px;
-  padding: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
+/* ===================== HERO EDU CARD ===================== */
+.edu-hero {
+  position: relative;
+  background: linear-gradient(180deg, rgba(26, 26, 46, 0.9), rgba(17, 17, 24, 0.95));
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 22px;
+  padding: 2.4rem 2.4rem 2rem;
+  overflow: hidden;
+  isolation: isolate;
   transition: var(--transition);
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-.edu-card:hover {
-  border-color: rgba(139, 92, 246, 0.3);
-  box-shadow: var(--glow-sm);
+/* Animated gradient halo */
+.edu-hero-glow {
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(
+    from 0deg,
+    rgba(139, 92, 246, 0) 0%,
+    rgba(139, 92, 246, 0.45) 25%,
+    rgba(192, 132, 252, 0.5) 50%,
+    rgba(139, 92, 246, 0.45) 75%,
+    rgba(139, 92, 246, 0) 100%
+  );
+  filter: blur(20px);
+  opacity: 0.45;
+  z-index: -2;
+  animation: rotateGlow 8s linear infinite;
 }
 
-.edu-icon {
-  width: 52px;
-  height: 52px;
+@keyframes rotateGlow {
+  to { transform: rotate(360deg); }
+}
+
+/* Tech grid background */
+.edu-hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.06) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(circle at 50% 50%, black 30%, transparent 70%);
+  z-index: -1;
+  opacity: 0.6;
+}
+
+.edu-hero:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5), var(--glow-md);
+}
+
+.edu-hero-body {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.edu-hero-left {
   flex-shrink: 0;
+}
+
+.edu-icon-big {
+  width: 88px;
+  height: 88px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(192, 132, 252, 0.1));
+  border: 1px solid rgba(139, 92, 246, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(139, 92, 246, 0.1);
-  border-radius: 14px;
-  padding: 12px;
+  padding: 18px;
+  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.3);
+  position: relative;
+  overflow: hidden;
 }
 
-.edu-icon svg,
-.cert-icon svg {
+.edu-icon-big::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.08) 50%, transparent 70%);
+  animation: iconShine 4s ease-in-out infinite;
+}
+
+@keyframes iconShine {
+  0%, 100% { transform: translateX(-120%); }
+  50% { transform: translateX(120%); }
+}
+
+.edu-icon-big svg {
   width: 100%;
   height: 100%;
-  stroke: var(--purple-400);
+  stroke: var(--purple-300);
   fill: none;
-  stroke-width: 1.8;
+  stroke-width: 1.6;
   stroke-linecap: round;
   stroke-linejoin: round;
+  filter: drop-shadow(0 0 12px rgba(192, 132, 252, 0.6));
 }
 
-.edu-info h3 {
-  font-size: 1.2rem;
-  font-weight: 700;
+.edu-hero-right { flex: 1; min-width: 0; }
+
+.edu-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: #4ade80;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 0.5px;
+}
+
+.edu-title {
+  font-size: 1.5rem;
+  font-weight: 800;
   color: var(--text-primary);
-  margin: 0 0 0.3rem 0;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
 }
 
 .edu-school {
   font-size: 1rem;
   color: var(--purple-300);
-  font-weight: 500;
-  margin: 0 0 0.3rem 0;
-}
-
-.edu-detail {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  margin: 0;
-}
-
-.edu-date-badge {
-  margin-left: auto;
-  flex-shrink: 0;
-  font-size: 0.82rem;
-  color: var(--purple-400);
   font-weight: 600;
-  padding: 6px 14px;
-  background: rgba(139, 92, 246, 0.1);
-  border-radius: 20px;
+  margin: 0 0 0.2rem 0;
+}
+
+.edu-track {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin: 0 0 1.4rem 0;
+  font-style: italic;
+}
+
+/* ===================== EDU TIMELINE BAR ===================== */
+.edu-timeline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.2rem;
+}
+
+.edu-date-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--purple-300);
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  padding: 4px 10px;
+  border-radius: 6px;
   white-space: nowrap;
 }
 
-.certs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
+.edu-progress {
+  position: relative;
+  flex: 1;
+  height: 6px;
+  background: rgba(139, 92, 246, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
 }
 
-.cert-card {
-  background: var(--black-700);
-  border: 1px solid rgba(139, 92, 246, 0.1);
-  border-radius: 14px;
-  padding: 1.3rem 1.5rem;
+.edu-progress-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--purple-700), var(--purple-400), #4ade80);
+  border-radius: 999px;
+  transform-origin: left center;
+  animation: progressGrow 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s both;
+}
+
+@keyframes progressGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.edu-progress-cap {
+  position: absolute;
+  right: -2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 12px #4ade80, 0 0 24px rgba(74, 222, 128, 0.5);
+  animation: capPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes capPulse {
+  0%, 100% { box-shadow: 0 0 12px #4ade80, 0 0 24px rgba(74, 222, 128, 0.4); }
+  50% { box-shadow: 0 0 18px #4ade80, 0 0 36px rgba(74, 222, 128, 0.7); }
+}
+
+/* ===================== EDU TAGS ===================== */
+.edu-tags {
   display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.edu-tag {
+  display: inline-flex;
   align-items: center;
-  gap: 1rem;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: rgba(139, 92, 246, 0.06);
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  padding: 5px 12px;
+  border-radius: 999px;
   transition: var(--transition);
 }
 
-.cert-card:hover {
-  border-color: rgba(139, 92, 246, 0.3);
-  box-shadow: var(--glow-sm);
+.edu-tag svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--purple-400);
+  fill: none;
+  stroke-width: 2;
+}
+
+.edu-tag .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--purple-400);
+  display: inline-block;
+}
+
+.edu-tag .dot.ok {
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+}
+
+.edu-tag:hover {
+  background: rgba(139, 92, 246, 0.14);
+  border-color: rgba(139, 92, 246, 0.4);
   transform: translateY(-2px);
 }
 
-.cert-icon {
-  width: 36px;
-  height: 36px;
+/* ===================== CERTS TIMELINE ===================== */
+.certs-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.cert-year-group {
+  position: relative;
+}
+
+.cert-year-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 1.2rem;
+}
+
+.cert-year {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--purple-300);
+  background: linear-gradient(135deg, var(--purple-400), var(--purple-300));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+.cert-year-count {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--purple-400);
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.cert-year-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.4), transparent);
+}
+
+/* ===================== CERT BADGES ===================== */
+.certs-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.9rem;
+}
+
+.cert-badge {
+  --c: #a855f7;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 1rem 1.2rem;
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.7), rgba(17, 17, 24, 0.85));
+  border: 1px solid color-mix(in srgb, var(--c) 22%, transparent);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+.cert-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 0% 50%, color-mix(in srgb, var(--c) 16%, transparent), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.cert-shine {
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  pointer-events: none;
+  transition: left 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.cert-badge:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--c) 60%, transparent);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35),
+              0 0 30px color-mix(in srgb, var(--c) 22%, transparent);
+}
+
+.cert-badge:hover::before { opacity: 1; }
+.cert-badge:hover .cert-shine { left: 130%; }
+
+.cert-medal {
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--c) 18%, rgba(0, 0, 0, 0.4));
+  border: 1px solid color-mix(in srgb, var(--c) 35%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(139, 92, 246, 0.1);
-  border-radius: 8px;
-  padding: 7px;
+  padding: 9px;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cert-badge:hover .cert-medal {
+  transform: rotate(-10deg) scale(1.08);
+}
+
+.cert-medal svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--c);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--c) 50%, transparent));
+}
+
+.cert-info {
+  flex: 1;
+  min-width: 0;
 }
 
 .cert-info h4 {
   font-size: 0.92rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-primary);
-  margin: 0 0 2px 0;
+  margin: 0 0 4px 0;
+  line-height: 1.35;
 }
 
-.cert-info p {
-  font-size: 0.8rem;
+.cert-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 0.74rem;
   color: var(--text-muted);
-  margin: 0;
 }
 
-@media (max-width: 900px) {
-  .edu-card {
-    flex-direction: column;
-    text-align: center;
-  }
-  .edu-date-badge { margin-left: 0; }
+.cert-org { color: var(--purple-300); font-weight: 500; }
+.cert-sep { opacity: 0.6; }
+.cert-date { font-family: var(--font-mono); }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 800px) {
+  .edu-hero { padding: 1.8rem 1.5rem; }
+  .edu-hero-body { flex-direction: column; align-items: flex-start; gap: 1.4rem; }
+  .edu-icon-big { width: 70px; height: 70px; }
+  .edu-title { font-size: 1.25rem; }
 }
 
 @media (max-width: 640px) {
-  .certs-grid { grid-template-columns: 1fr; }
+  .certs-row { grid-template-columns: 1fr; }
+  .edu-timeline { flex-wrap: wrap; gap: 8px; }
+  .edu-progress { order: 3; flex-basis: 100%; }
 }

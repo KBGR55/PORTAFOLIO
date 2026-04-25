@@ -3,82 +3,187 @@
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.2rem;
+  gap: 1.3rem;
 }
 
+/* ===================== CARD ===================== */
 .project-card {
-  background: var(--black-700);
-  border: 1px solid rgba(139, 92, 246, 0.12);
-  border-radius: 14px;
-  padding: 1.4rem;
+  --lang-color: #a855f7;
+  position: relative;
+  background: linear-gradient(180deg, rgba(26, 26, 46, 0.85), rgba(17, 17, 24, 0.95));
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  border-radius: 16px;
+  padding: 1.4rem 1.4rem 1.2rem;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  transition: var(--transition);
-  position: relative;
+  gap: 0.85rem;
   overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s ease,
+              box-shadow 0.35s ease;
 }
 
+/* Glow halo en la esquina superior derecha con el color del lenguaje */
 .project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 100% 0%, var(--lang-color) 0%, transparent 50%);
+  opacity: 0.05;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+/* Linea decorativa superior (aparece al hover) */
+.project-card::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--purple-500), transparent);
+  background: linear-gradient(90deg, transparent, var(--lang-color), transparent);
   opacity: 0;
-  transition: var(--transition);
+  transition: opacity 0.35s ease;
 }
 
 .project-card:hover {
-  border-color: rgba(139, 92, 246, 0.4);
-  transform: translateY(-4px);
-  box-shadow: var(--glow-md);
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--lang-color) 45%, transparent);
+  box-shadow:
+    0 14px 36px rgba(0, 0, 0, 0.45),
+    0 0 36px color-mix(in srgb, var(--lang-color) 18%, transparent);
 }
 
-.project-card:hover::before { opacity: 1; }
+.project-card:hover::before { opacity: 0.18; }
+.project-card:hover::after { opacity: 1; }
 
-.project-header {
+/* ===================== TOP ===================== */
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.folder-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  background: color-mix(in srgb, var(--lang-color) 12%, rgba(139, 92, 246, 0.08));
   display: flex;
   align-items: center;
-  gap: 8px;
-}
-
-.project-header svg {
-  width: 20px;
-  height: 20px;
-  stroke: var(--purple-400);
-  fill: none;
-  stroke-width: 1.8;
+  justify-content: center;
+  padding: 10px;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              background 0.3s ease;
   flex-shrink: 0;
 }
 
-.project-name {
-  font-size: 1.05rem;
+.project-card:hover .folder-icon {
+  transform: rotate(-8deg) scale(1.08);
+  background: color-mix(in srgb, var(--lang-color) 22%, transparent);
+}
+
+.folder-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--lang-color);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--lang-color) 35%, transparent));
+}
+
+.card-stats-top {
+  display: flex;
+  gap: 10px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.card-stats-top .stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.card-stats-top .ico {
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+}
+
+.card-stats-top svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 2;
+}
+
+/* ===================== TITLEBAR ===================== */
+.card-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.card-title {
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.3px;
   word-break: break-word;
   flex: 1;
+  min-width: 0;
+  transition: color 0.3s ease;
+  font-family: var(--font-mono);
 }
 
-.project-live-badge {
-  font-size: 0.65rem;
-  padding: 2px 8px;
-  background: rgba(34, 197, 94, 0.15);
+.project-card:hover .card-title {
+  color: var(--lang-color);
+}
+
+.live-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.66rem;
+  padding: 3px 9px;
+  background: rgba(34, 197, 94, 0.13);
   color: #4ade80;
-  border: 1px solid rgba(34, 197, 94, 0.3);
+  border: 1px solid rgba(34, 197, 94, 0.32);
   border-radius: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   font-weight: 700;
-  animation: blink 2.5s ease-in-out infinite;
+  flex-shrink: 0;
 }
 
-.project-desc {
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e;
+  animation: livePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.85); }
+}
+
+/* ===================== DESC ===================== */
+.card-desc {
   font-size: 0.86rem;
   color: var(--text-secondary);
-  line-height: 1.55;
+  line-height: 1.6;
   margin: 0;
   flex: 1;
   display: -webkit-box;
@@ -87,96 +192,81 @@
   overflow: hidden;
 }
 
-.project-topics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
-.project-topic {
-  font-size: 0.7rem;
-  padding: 2px 8px;
-  background: rgba(139, 92, 246, 0.08);
-  color: var(--purple-300);
-  border: 1px solid rgba(139, 92, 246, 0.18);
-  border-radius: 10px;
-}
-
-.project-meta {
+/* ===================== FOOT (lang chip) ===================== */
+.card-foot {
   display: flex;
   align-items: center;
-  gap: 14px;
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  padding-top: 0.4rem;
+  padding-top: 0.5rem;
   border-top: 1px solid rgba(139, 92, 246, 0.08);
 }
 
-.project-lang {
-  display: flex;
+.lang-chip {
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-}
-
-.project-lang svg {
-  width: 14px;
-  height: 14px;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 2;
+  gap: 7px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-family: var(--font-mono);
 }
 
 .lang-dot {
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  flex-shrink: 0;
-  box-shadow: 0 0 6px currentColor;
+  background: var(--lang-color);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--lang-color) 60%, transparent);
 }
 
-.project-actions {
+/* ===================== ACTIONS ===================== */
+.card-actions {
   display: flex;
   gap: 8px;
-  margin-top: 4px;
 }
 
-.project-btn {
+.btn-action {
   flex: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-size: 0.8rem;
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-size: 0.78rem;
   font-weight: 600;
   text-decoration: none;
   transition: var(--transition);
-  border: 1px solid rgba(139, 92, 246, 0.25);
-  background: rgba(139, 92, 246, 0.08);
-  color: var(--purple-300);
   font-family: inherit;
+  white-space: nowrap;
+  cursor: pointer;
 }
 
-.project-btn:hover {
+.btn-action.ghost {
+  background: rgba(139, 92, 246, 0.08);
+  border: 1px solid rgba(139, 92, 246, 0.22);
+  color: var(--purple-300);
+}
+
+.btn-action.ghost:hover {
   background: rgba(139, 92, 246, 0.18);
   border-color: var(--purple-400);
-  color: var(--purple-200);
+  color: white;
   transform: translateY(-1px);
 }
 
-.project-btn.live {
+.btn-action.filled {
   background: linear-gradient(135deg, var(--purple-700), var(--purple-600));
   color: white;
-  border-color: transparent;
+  border: 1px solid transparent;
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.25);
 }
 
-.project-btn.live:hover {
-  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
-  color: white;
+.btn-action.filled:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(139, 92, 246, 0.45);
 }
 
-.project-btn svg {
+.btn-action svg {
   width: 14px;
   height: 14px;
   stroke: currentColor;
@@ -185,6 +275,7 @@
   flex-shrink: 0;
 }
 
+/* ===================== STATES ===================== */
 .projects-loading {
   text-align: center;
   padding: 3rem 1rem;
@@ -219,7 +310,7 @@
 .projects-see-all {
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
 }
 
 .projects-see-all svg {

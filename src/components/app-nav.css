@@ -8,19 +8,34 @@
 }
 
 nav {
+  position: relative;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: var(--transition);
+  transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   background: transparent;
 }
 
-:host([scrolled]) nav {
+nav::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: var(--transition);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  z-index: -1;
+}
+
+:host([scrolled]) nav::before {
   background: rgba(10, 10, 15, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+  border-bottom-color: rgba(139, 92, 246, 0.15);
+}
+
+:host([scrolled]) nav {
   padding: 0.7rem 2rem;
 }
 
@@ -110,7 +125,14 @@ nav {
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-@media (max-width: 640px) {
+@media (max-width: 1024px) {
+  .nav-links a {
+    font-size: 0.82rem;
+    padding: 0.4rem 0.7rem;
+  }
+}
+
+@media (max-width: 900px) {
   nav { padding: 0.8rem 1.2rem; }
 
   .nav-links {
@@ -120,18 +142,45 @@ nav {
     left: 0;
     right: 0;
     bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
     background: rgba(10, 10, 15, 0.97);
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
-    z-index: 999;
+    gap: 1rem;
+    z-index: 1000;
     margin: 0;
     padding: 0;
   }
 
-  .nav-links.open { display: flex; }
-  .nav-links a { font-size: 1.2rem; padding: 0.8rem 2rem; }
+  .nav-links.open {
+    display: flex;
+    animation: menuFadeIn 0.25s ease-out;
+  }
+
+  @keyframes menuFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .nav-links li { list-style: none; }
+
+  .nav-links a {
+    font-size: 1.4rem;
+    padding: 0.6rem 2rem;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .nav-links a.active,
+  .nav-links a:hover {
+    color: var(--purple-400);
+    background: rgba(139, 92, 246, 0.12);
+  }
+
   .hamburger { display: flex; }
 }

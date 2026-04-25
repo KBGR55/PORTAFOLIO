@@ -4,46 +4,45 @@ import { icon } from '../icons.js'
 
 function projectCard(host, repo) {
   const t = getT(host.lang)
+  const langColor = host._langColor(repo.language)
+  const styleVar = `--lang-color: ${langColor};`
   return html`
-    <div class="project-card reveal">
-      <div class="project-header">
-        ${icon('folder')}
-        <span class="project-name">${repo.name}</span>
-        ${repo.homepage ? html`<span class="project-live-badge">● Live</span>` : ''}
+    <article class="project-card reveal" style="${styleVar}">
+      <header class="card-top">
+        <div class="folder-icon">${icon('folder')}</div>
+        <div class="card-stats-top">
+          <span class="stat"><span class="ico">${icon('star')}</span>${repo.stars}</span>
+          <span class="stat"><span class="ico">${icon('gitFork')}</span>${repo.forks}</span>
+        </div>
+      </header>
+
+      <div class="card-titlebar">
+        <h3 class="card-title">${repo.name}</h3>
+        ${repo.homepage ? html`<span class="live-tag"><span class="live-dot"></span> Live</span>` : ''}
       </div>
-      <p class="project-desc">${repo.description || t.projects.noDescription}</p>
-      ${repo.topics.length
-        ? html`
-            <div class="project-topics">
-              ${repo.topics.slice(0, 5).map((tp) => html`<span class="project-topic">#${tp}</span>`)}
-            </div>
-          `
-        : ''}
-      <div class="project-meta">
-        ${repo.language
-          ? html`
-              <span class="project-lang">
-                <span class="lang-dot" style="background:${host._langColor(repo.language)}; color:${host._langColor(repo.language)}"></span>
-                ${repo.language}
-              </span>
-            `
-          : ''}
-        <span class="project-lang">${icon('star')} ${repo.stars}</span>
-        <span class="project-lang">${icon('gitFork')} ${repo.forks}</span>
+
+      <p class="card-desc">${repo.description}</p>
+
+      <div class="card-foot">
+        <span class="lang-chip">
+          <span class="lang-dot"></span>
+          ${repo.language || '—'}
+        </span>
       </div>
-      <div class="project-actions">
-        <a class="project-btn" href="${repo.html_url}" target="_blank" rel="noopener noreferrer">
-          ${icon('github')} ${t.projects.code}
+
+      <div class="card-actions">
+        <a class="btn-action ghost" href="${repo.html_url}" target="_blank" rel="noopener noreferrer">
+          ${icon('github')} <span>${t.projects.code}</span>
         </a>
         ${repo.homepage
           ? html`
-              <a class="project-btn live" href="${repo.homepage}" target="_blank" rel="noopener noreferrer">
-                ${icon('externalLink')} ${t.projects.live}
+              <a class="btn-action filled" href="${repo.homepage}" target="_blank" rel="noopener noreferrer">
+                ${icon('externalLink')} <span>${t.projects.live}</span>
               </a>
             `
           : ''}
       </div>
-    </div>
+    </article>
   `
 }
 
@@ -52,7 +51,6 @@ export function template(host) {
   return html`
     <section>
       <div class="section-header">
-        <p class="section-label">${t.projects.label}</p>
         <h2 class="section-title">${t.projects.title}</h2>
         <div class="section-line"></div>
       </div>

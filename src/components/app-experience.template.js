@@ -35,7 +35,6 @@ export function template(host) {
   return html`
     <section>
       <div class="section-header">
-        <p class="section-label">${e.label}</p>
         <h2 class="section-title">${e.title}</h2>
         <div class="section-line"></div>
       </div>
@@ -46,7 +45,6 @@ export function template(host) {
         ${timelineItem(e.job4Role, e.job4Date, e.job4Company, e.job4Desc, TECH_BY_JOB[3])}
         ${timelineItem(e.job5Role, e.job5Date, e.job5Company, e.job5Desc, TECH_BY_JOB[4])}
       </div>
-      <git-log-terminal></git-log-terminal>
     </section>
   `
 }

@@ -2,13 +2,16 @@
 
 .timeline {
   position: relative;
-  padding-left: 2rem;
+  padding: 0;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .timeline::before {
   content: '';
   position: absolute;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   top: 0;
   bottom: 0;
   width: 2px;
@@ -17,21 +20,72 @@
 
 .timeline-item {
   position: relative;
+  width: 50%;
   margin-bottom: 2.5rem;
-  padding-left: 2rem;
+  box-sizing: border-box;
 }
 
+/* odd → right side (1st, 3rd, 5th) */
+.timeline-item:nth-child(odd) {
+  margin-left: 50%;
+  padding-left: 2.5rem;
+}
+
+/* even → left side (2nd, 4th) */
+.timeline-item:nth-child(even) {
+  padding-right: 2.5rem;
+}
+
+/* Dot on the central line */
 .timeline-item::before {
   content: '';
   position: absolute;
-  left: -2.35rem;
-  top: 8px;
-  width: 14px;
-  height: 14px;
+  top: 14px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: var(--purple-600);
   border: 3px solid var(--black-900);
-  box-shadow: 0 0 12px rgba(139, 92, 246, 0.5);
+  box-shadow: 0 0 14px rgba(139, 92, 246, 0.6);
+  z-index: 2;
+}
+
+.timeline-item:nth-child(odd)::before { left: -8px; }
+.timeline-item:nth-child(even)::before { right: -8px; }
+
+/* Connector from dot to card */
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  top: 21px;
+  width: 2rem;
+  height: 2px;
+  z-index: 1;
+}
+
+.timeline-item:nth-child(odd)::after {
+  left: 0;
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.45), rgba(139, 92, 246, 0));
+}
+
+.timeline-item:nth-child(even)::after {
+  right: 0;
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0), rgba(139, 92, 246, 0.45));
+}
+
+/* Direction-aware reveal animation */
+.timeline-item.reveal {
+  opacity: 0;
+}
+.timeline-item:nth-child(odd).reveal {
+  transform: translateX(40px);
+}
+.timeline-item:nth-child(even).reveal {
+  transform: translateX(-40px);
+}
+.timeline-item.reveal.in-view {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .timeline-card {
@@ -45,6 +99,7 @@
 .timeline-card:hover {
   border-color: rgba(139, 92, 246, 0.3);
   box-shadow: var(--glow-sm);
+  transform: translateY(-3px);
 }
 
 .timeline-header {
@@ -57,23 +112,23 @@
 }
 
 .timeline-role {
-  font-size: 1.12rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--text-primary);
 }
 
 .timeline-date {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--purple-400);
   font-weight: 600;
-  padding: 4px 14px;
+  padding: 4px 12px;
   background: rgba(139, 92, 246, 0.1);
   border-radius: 20px;
   white-space: nowrap;
 }
 
 .timeline-company {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--purple-300);
   font-weight: 500;
   margin-bottom: 0.8rem;
@@ -90,7 +145,7 @@
   position: relative;
   padding-left: 1.2rem;
   margin-bottom: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--text-secondary);
   line-height: 1.65;
 }
@@ -114,11 +169,51 @@
 }
 
 .tech-pill {
-  font-size: 0.73rem;
+  font-size: 0.72rem;
   padding: 4px 10px;
   background: rgba(139, 92, 246, 0.1);
   color: var(--purple-300);
   border-radius: 6px;
   border: 1px solid rgba(139, 92, 246, 0.15);
   font-weight: 500;
+}
+
+/* ===================== RESPONSIVE: collapse to single column ===================== */
+@media (max-width: 900px) {
+  .timeline { max-width: none; }
+
+  .timeline::before {
+    left: 1rem;
+    transform: none;
+  }
+
+  .timeline-item,
+  .timeline-item:nth-child(odd),
+  .timeline-item:nth-child(even) {
+    width: 100%;
+    margin-left: 0;
+    padding: 0 0 0 3rem;
+  }
+
+  .timeline-item::before,
+  .timeline-item:nth-child(odd)::before,
+  .timeline-item:nth-child(even)::before {
+    left: 0.5rem;
+    right: auto;
+  }
+
+  .timeline-item::after,
+  .timeline-item:nth-child(odd)::after,
+  .timeline-item:nth-child(even)::after {
+    left: 1rem;
+    right: auto;
+    background: linear-gradient(90deg, rgba(139, 92, 246, 0.45), rgba(139, 92, 246, 0));
+  }
+
+  .timeline-item.reveal,
+  .timeline-item:nth-child(odd).reveal,
+  .timeline-item:nth-child(even).reveal {
+    transform: translateY(28px);
+  }
+  .timeline-item.reveal.in-view { transform: none; }
 }

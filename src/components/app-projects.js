@@ -58,7 +58,7 @@ export class AppProjects extends RevealMixin(LitElement) {
   }
 
   async _fetchRepos() {
-    const cacheKey = `gh_repos_${this.user}`
+    const cacheKey = `gh_repos_${this.user}_v4`
     try {
       const cached = JSON.parse(localStorage.getItem(cacheKey) || 'null')
       if (cached && Date.now() - cached.t < CACHE_TTL && Array.isArray(cached.data)) {
@@ -75,10 +75,18 @@ export class AppProjects extends RevealMixin(LitElement) {
       if (!res.ok) throw new Error(`GitHub ${res.status}`)
       const all = await res.json()
       const filtered = all
-        .filter((r) => !r.fork && !r.archived && !r.private)
+        .filter(
+          (r) =>
+            !r.fork &&
+            !r.archived &&
+            !r.private &&
+            !/\.github\.io$/i.test(r.name) &&
+            r.description &&
+            r.description.trim().length > 0,
+        )
         .map((r) => ({
           name: r.name,
-          description: r.description,
+          description: r.description.trim(),
           html_url: r.html_url,
           homepage: r.homepage && r.homepage.trim() ? r.homepage.trim() : '',
           language: r.language,
