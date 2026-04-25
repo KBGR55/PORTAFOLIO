@@ -1,0 +1,132 @@
+:host { display: block; }
+
+.edu-card {
+  background: var(--black-700);
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  transition: var(--transition);
+}
+
+.edu-card:hover {
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: var(--glow-sm);
+}
+
+.edu-icon {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.edu-icon svg,
+.cert-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--purple-400);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.edu-info h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.3rem 0;
+}
+
+.edu-school {
+  font-size: 1rem;
+  color: var(--purple-300);
+  font-weight: 500;
+  margin: 0 0 0.3rem 0;
+}
+
+.edu-detail {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.edu-date-badge {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 0.82rem;
+  color: var(--purple-400);
+  font-weight: 600;
+  padding: 6px 14px;
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.certs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.cert-card {
+  background: var(--black-700);
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  border-radius: 14px;
+  padding: 1.3rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: var(--transition);
+}
+
+.cert-card:hover {
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: var(--glow-sm);
+  transform: translateY(-2px);
+}
+
+.cert-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 8px;
+  padding: 7px;
+}
+
+.cert-info h4 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 2px 0;
+}
+
+.cert-info p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .edu-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .edu-date-badge { margin-left: 0; }
+}
+
+@media (max-width: 640px) {
+  .certs-grid { grid-template-columns: 1fr; }
+}

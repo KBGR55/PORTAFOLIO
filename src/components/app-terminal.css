@@ -1,0 +1,7 @@
+:host { display: block; }
+
+.terminal-body {
+  min-height: 200px;
+  max-height: 240px;
+  overflow: hidden;
+}

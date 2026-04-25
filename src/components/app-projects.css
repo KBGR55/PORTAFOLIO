@@ -1,0 +1,231 @@
+:host { display: block; }
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.2rem;
+}
+
+.project-card {
+  background: var(--black-700);
+  border: 1px solid rgba(139, 92, 246, 0.12);
+  border-radius: 14px;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--purple-500), transparent);
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.project-card:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: translateY(-4px);
+  box-shadow: var(--glow-md);
+}
+
+.project-card:hover::before { opacity: 1; }
+
+.project-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.project-header svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--purple-400);
+  fill: none;
+  stroke-width: 1.8;
+  flex-shrink: 0;
+}
+
+.project-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  word-break: break-word;
+  flex: 1;
+}
+
+.project-live-badge {
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  animation: blink 2.5s ease-in-out infinite;
+}
+
+.project-desc {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.project-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.project-topic {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  background: rgba(139, 92, 246, 0.08);
+  color: var(--purple-300);
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 10px;
+}
+
+.project-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  padding-top: 0.4rem;
+  border-top: 1px solid rgba(139, 92, 246, 0.08);
+}
+
+.project-lang {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.project-lang svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.lang-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px currentColor;
+}
+
+.project-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.project-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  background: rgba(139, 92, 246, 0.08);
+  color: var(--purple-300);
+  font-family: inherit;
+}
+
+.project-btn:hover {
+  background: rgba(139, 92, 246, 0.18);
+  border-color: var(--purple-400);
+  color: var(--purple-200);
+  transform: translateY(-1px);
+}
+
+.project-btn.live {
+  background: linear-gradient(135deg, var(--purple-700), var(--purple-600));
+  color: white;
+  border-color: transparent;
+}
+
+.project-btn.live:hover {
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+  color: white;
+}
+
+.project-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+
+.projects-loading {
+  text-align: center;
+  padding: 3rem 1rem;
+  font-family: var(--font-mono);
+  color: var(--purple-300);
+  font-size: 0.95rem;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(139, 92, 246, 0.2);
+  border-top-color: var(--purple-400);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.projects-error {
+  text-align: center;
+  padding: 2rem;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.05);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.projects-see-all {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.projects-see-all svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}

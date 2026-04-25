@@ -1,0 +1,13 @@
+:host { display: block; }
+
+footer {
+  text-align: center;
+  padding: 2.5rem 2rem 3.5rem;
+  border-top: 1px solid rgba(139, 92, 246, 0.1);
+}
+
+footer p {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin: 0;
+}

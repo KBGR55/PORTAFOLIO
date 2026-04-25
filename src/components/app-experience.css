@@ -1,0 +1,124 @@
+:host { display: block; }
+
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--purple-600), var(--purple-900), transparent);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+  padding-left: 2rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.35rem;
+  top: 8px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--purple-600);
+  border: 3px solid var(--black-900);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.5);
+}
+
+.timeline-card {
+  background: var(--black-700);
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  border-radius: 16px;
+  padding: 1.8rem;
+  transition: var(--transition);
+}
+
+.timeline-card:hover {
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: var(--glow-sm);
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.timeline-role {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.timeline-date {
+  font-size: 0.8rem;
+  color: var(--purple-400);
+  font-weight: 600;
+  padding: 4px 14px;
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.timeline-company {
+  font-size: 0.9rem;
+  color: var(--purple-300);
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  font-style: italic;
+}
+
+.timeline-desc {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.timeline-desc li {
+  position: relative;
+  padding-left: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.timeline-desc li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 5px;
+  height: 5px;
+  background: var(--purple-500);
+  border-radius: 50%;
+}
+
+.timeline-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 1rem;
+}
+
+.tech-pill {
+  font-size: 0.73rem;
+  padding: 4px 10px;
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--purple-300);
+  border-radius: 6px;
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  font-weight: 500;
+}

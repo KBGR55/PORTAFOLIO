@@ -1,0 +1,121 @@
+:host { display: block; }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.skill-category {
+  background: var(--black-700);
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  border-radius: 16px;
+  padding: 1.8rem;
+  transition: var(--transition);
+}
+
+.skill-category:hover {
+  border-color: rgba(139, 92, 246, 0.35);
+  box-shadow: var(--glow-sm);
+  transform: translateY(-3px);
+}
+
+.skill-category-icon {
+  width: 38px;
+  height: 38px;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 10px;
+  padding: 8px;
+}
+
+.skill-category-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--purple-400);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.skill-category h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  font-size: 0.82rem;
+  padding: 6px 12px;
+  background: rgba(139, 92, 246, 0.08);
+  color: var(--text-secondary);
+  border-radius: 8px;
+  border: 1px solid rgba(139, 92, 246, 0.12);
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.skill-tag:hover {
+  background: rgba(139, 92, 246, 0.18);
+  color: var(--purple-300);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.soft-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.soft-skill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--black-700);
+  border: 1px solid rgba(139, 92, 246, 0.12);
+  border-radius: 50px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.soft-skill:hover {
+  border-color: rgba(139, 92, 246, 0.35);
+  color: var(--purple-300);
+  transform: translateY(-2px);
+  box-shadow: var(--glow-sm);
+}
+
+.soft-skill svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  stroke: var(--purple-400);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 900px) {
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .skills-grid { grid-template-columns: 1fr; }
+}
