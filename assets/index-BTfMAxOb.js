@@ -1,5 +1,5 @@
 (function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();var e=typeof window<`u`&&window.customElements!=null&&window.customElements.polyfillWrapFlushCallback!==void 0,t=(e,t,n=null)=>{for(;t!==n;){let n=t.nextSibling;e.removeChild(t),t=n}},n=`{{lit-${String(Math.random()).slice(2)}}}`,r=`<!--${n}-->`,i=RegExp(`${n}|${r}`),a=`$lit$`,o=class{constructor(e,t){this.parts=[],this.element=t;let r=[],o=[],c=document.createTreeWalker(t.content,133,null,!1),d=0,f=-1,p=0,{strings:m,values:{length:h}}=e;for(;p<h;){let e=c.nextNode();if(e===null){c.currentNode=o.pop();continue}if(f++,e.nodeType===1){if(e.hasAttributes()){let t=e.attributes,{length:n}=t,r=0;for(let e=0;e<n;e++)s(t[e].name,`$lit$`)&&r++;for(;r-- >0;){let t=m[p],n=u.exec(t)[2],r=n.toLowerCase()+a,o=e.getAttribute(r);e.removeAttribute(r);let s=o.split(i);this.parts.push({type:`attribute`,index:f,name:n,strings:s}),p+=s.length-1}}e.tagName===`TEMPLATE`&&(o.push(e),c.currentNode=e.content)}else if(e.nodeType===3){let t=e.data;if(t.indexOf(n)>=0){let n=e.parentNode,a=t.split(i),o=a.length-1;for(let t=0;t<o;t++){let r,i=a[t];if(i===``)r=l();else{let e=u.exec(i);e!==null&&s(e[2],`$lit$`)&&(i=i.slice(0,e.index)+e[1]+e[2].slice(0,-5)+e[3]),r=document.createTextNode(i)}n.insertBefore(r,e),this.parts.push({type:`node`,index:++f})}a[o]===``?(n.insertBefore(l(),e),r.push(e)):e.data=a[o],p+=o}}else if(e.nodeType===8)if(e.data===n){let t=e.parentNode;(e.previousSibling===null||f===d)&&(f++,t.insertBefore(l(),e)),d=f,this.parts.push({type:`node`,index:f}),e.nextSibling===null?e.data=``:(r.push(e),f--),p++}else{let t=-1;for(;(t=e.data.indexOf(n,t+1))!==-1;)this.parts.push({type:`node`,index:-1}),p++}}for(let e of r)e.parentNode.removeChild(e)}},s=(e,t)=>{let n=e.length-t.length;return n>=0&&e.slice(n)===t},c=e=>e.index!==-1,l=()=>document.createComment(``),u=/([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F "'>=/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/,d=133;function f(e,t){let{element:{content:n},parts:r}=e,i=document.createTreeWalker(n,d,null,!1),a=m(r),o=r[a],s=-1,c=0,l=[],u=null;for(;i.nextNode();){s++;let e=i.currentNode;for(e.previousSibling===u&&(u=null),t.has(e)&&(l.push(e),u===null&&(u=e)),u!==null&&c++;o!==void 0&&o.index===s;)o.index=u===null?o.index-c:-1,a=m(r,a),o=r[a]}l.forEach(e=>e.parentNode.removeChild(e))}var p=e=>{let t=e.nodeType===11?0:1,n=document.createTreeWalker(e,d,null,!1);for(;n.nextNode();)t++;return t},m=(e,t=-1)=>{for(let n=t+1;n<e.length;n++){let t=e[n];if(c(t))return n}return-1};function h(e,t,n=null){let{element:{content:r},parts:i}=e;if(n==null){r.appendChild(t);return}let a=document.createTreeWalker(r,d,null,!1),o=m(i),s=0,c=-1;for(;a.nextNode();)for(c++,a.currentNode===n&&(s=p(t),n.parentNode.insertBefore(t,n));o!==-1&&i[o].index===c;){if(s>0){for(;o!==-1;)i[o].index+=s,o=m(i,o);return}o=m(i,o)}}var g=new WeakMap,_=e=>typeof e==`function`&&g.has(e),v={},y={},b=class{constructor(e,t,n){this.__parts=[],this.template=e,this.processor=t,this.options=n}update(e){let t=0;for(let n of this.__parts)n!==void 0&&n.setValue(e[t]),t++;for(let e of this.__parts)e!==void 0&&e.commit()}_clone(){let t=e?this.template.element.content.cloneNode(!0):document.importNode(this.template.element.content,!0),n=[],r=this.template.parts,i=document.createTreeWalker(t,133,null,!1),a=0,o=0,s,l=i.nextNode();for(;a<r.length;){if(s=r[a],!c(s)){this.__parts.push(void 0),a++;continue}for(;o<s.index;)o++,l.nodeName===`TEMPLATE`&&(n.push(l),i.currentNode=l.content),(l=i.nextNode())===null&&(i.currentNode=n.pop(),l=i.nextNode());if(s.type===`node`){let e=this.processor.handleTextExpression(this.options);e.insertAfterNode(l.previousSibling),this.__parts.push(e)}else this.__parts.push(...this.processor.handleAttributeExpressions(l,s.name,s.strings,this.options));a++}return e&&(document.adoptNode(t),customElements.upgrade(t)),t}},x=window.trustedTypes&&trustedTypes.createPolicy(`lit-html`,{createHTML:e=>e}),ee=` ${n} `,S=class{constructor(e,t,n,r){this.strings=e,this.values=t,this.type=n,this.processor=r}getHTML(){let e=this.strings.length-1,t=``,i=!1;for(let o=0;o<e;o++){let e=this.strings[o],s=e.lastIndexOf(`<!--`);i=(s>-1||i)&&e.indexOf(`-->`,s+1)===-1;let c=u.exec(e);c===null?t+=e+(i?ee:r):t+=e.substr(0,c.index)+c[1]+c[2]+a+c[3]+n}return t+=this.strings[e],t}getTemplateElement(){let e=document.createElement(`template`),t=this.getHTML();return x!==void 0&&(t=x.createHTML(t)),e.innerHTML=t,e}},C=e=>e===null||!(typeof e==`object`||typeof e==`function`),w=e=>Array.isArray(e)||!!(e&&e[Symbol.iterator]),T=class{constructor(e,t,n){this.dirty=!0,this.element=e,this.name=t,this.strings=n,this.parts=[];for(let e=0;e<n.length-1;e++)this.parts[e]=this._createPart()}_createPart(){return new E(this)}_getValue(){let e=this.strings,t=e.length-1,n=this.parts;if(t===1&&e[0]===``&&e[1]===``){let e=n[0].value;if(typeof e==`symbol`)return String(e);if(typeof e==`string`||!w(e))return e}let r=``;for(let i=0;i<t;i++){r+=e[i];let t=n[i];if(t!==void 0){let e=t.value;if(C(e)||!w(e))r+=typeof e==`string`?e:String(e);else for(let t of e)r+=typeof t==`string`?t:String(t)}}return r+=e[t],r}commit(){this.dirty&&(this.dirty=!1,this.element.setAttribute(this.name,this._getValue()))}},E=class{constructor(e){this.value=void 0,this.committer=e}setValue(e){e!==v&&(!C(e)||e!==this.value)&&(this.value=e,_(e)||(this.committer.dirty=!0))}commit(){for(;_(this.value);){let e=this.value;this.value=v,e(this)}this.value!==v&&this.committer.commit()}},D=class e{constructor(e){this.value=void 0,this.__pendingValue=void 0,this.options=e}appendInto(e){this.startNode=e.appendChild(l()),this.endNode=e.appendChild(l())}insertAfterNode(e){this.startNode=e,this.endNode=e.nextSibling}appendIntoPart(e){e.__insert(this.startNode=l()),e.__insert(this.endNode=l())}insertAfterPart(e){e.__insert(this.startNode=l()),this.endNode=e.endNode,e.endNode=this.startNode}setValue(e){this.__pendingValue=e}commit(){if(this.startNode.parentNode===null)return;for(;_(this.__pendingValue);){let e=this.__pendingValue;this.__pendingValue=v,e(this)}let e=this.__pendingValue;e!==v&&(C(e)?e!==this.value&&this.__commitText(e):e instanceof S?this.__commitTemplateResult(e):e instanceof Node?this.__commitNode(e):w(e)?this.__commitIterable(e):e===y?(this.value=y,this.clear()):this.__commitText(e))}__insert(e){this.endNode.parentNode.insertBefore(e,this.endNode)}__commitNode(e){this.value!==e&&(this.clear(),this.__insert(e),this.value=e)}__commitText(e){let t=this.startNode.nextSibling;e??=``;let n=typeof e==`string`?e:String(e);t===this.endNode.previousSibling&&t.nodeType===3?t.data=n:this.__commitNode(document.createTextNode(n)),this.value=e}__commitTemplateResult(e){let t=this.options.templateFactory(e);if(this.value instanceof b&&this.value.template===t)this.value.update(e.values);else{let n=new b(t,e.processor,this.options),r=n._clone();n.update(e.values),this.__commitNode(r),this.value=n}}__commitIterable(t){Array.isArray(this.value)||(this.value=[],this.clear());let n=this.value,r=0,i;for(let a of t)i=n[r],i===void 0&&(i=new e(this.options),n.push(i),r===0?i.appendIntoPart(this):i.insertAfterPart(n[r-1])),i.setValue(a),i.commit(),r++;r<n.length&&(n.length=r,this.clear(i&&i.endNode))}clear(e=this.startNode){t(this.startNode.parentNode,e.nextSibling,this.endNode)}},te=class{constructor(e,t,n){if(this.value=void 0,this.__pendingValue=void 0,n.length!==2||n[0]!==``||n[1]!==``)throw Error(`Boolean attributes can only contain a single expression`);this.element=e,this.name=t,this.strings=n}setValue(e){this.__pendingValue=e}commit(){for(;_(this.__pendingValue);){let e=this.__pendingValue;this.__pendingValue=v,e(this)}if(this.__pendingValue===v)return;let e=!!this.__pendingValue;this.value!==e&&(e?this.element.setAttribute(this.name,``):this.element.removeAttribute(this.name),this.value=e),this.__pendingValue=v}},ne=class extends T{constructor(e,t,n){super(e,t,n),this.single=n.length===2&&n[0]===``&&n[1]===``}_createPart(){return new re(this)}_getValue(){return this.single?this.parts[0].value:super._getValue()}commit(){this.dirty&&(this.dirty=!1,this.element[this.name]=this._getValue())}},re=class extends E{},O=!1;(()=>{try{let e={get capture(){return O=!0,!1}};window.addEventListener(`test`,e,e),window.removeEventListener(`test`,e,e)}catch{}})();var ie=class{constructor(e,t,n){this.value=void 0,this.__pendingValue=void 0,this.element=e,this.eventName=t,this.eventContext=n,this.__boundHandleEvent=e=>this.handleEvent(e)}setValue(e){this.__pendingValue=e}commit(){for(;_(this.__pendingValue);){let e=this.__pendingValue;this.__pendingValue=v,e(this)}if(this.__pendingValue===v)return;let e=this.__pendingValue,t=this.value,n=e==null||t!=null&&(e.capture!==t.capture||e.once!==t.once||e.passive!==t.passive),r=e!=null&&(t==null||n);n&&this.element.removeEventListener(this.eventName,this.__boundHandleEvent,this.__options),r&&(this.__options=ae(e),this.element.addEventListener(this.eventName,this.__boundHandleEvent,this.__options)),this.value=e,this.__pendingValue=v}handleEvent(e){typeof this.value==`function`?this.value.call(this.eventContext||this.element,e):this.value.handleEvent(e)}},ae=e=>e&&(O?{capture:e.capture,passive:e.passive,once:e.once}:e.capture);function oe(e){let t=k.get(e.type);t===void 0&&(t={stringsArray:new WeakMap,keyString:new Map},k.set(e.type,t));let r=t.stringsArray.get(e.strings);if(r!==void 0)return r;let i=e.strings.join(n);return r=t.keyString.get(i),r===void 0&&(r=new o(e,e.getTemplateElement()),t.keyString.set(i,r)),t.stringsArray.set(e.strings,r),r}var k=new Map,A=new WeakMap,j=(e,n,r)=>{let i=A.get(n);i===void 0&&(t(n,n.firstChild),A.set(n,i=new D(Object.assign({templateFactory:oe},r))),i.appendInto(n)),i.setValue(e),i.commit()},M=new class{handleAttributeExpressions(e,t,n,r){let i=t[0];return i===`.`?new ne(e,t.slice(1),n).parts:i===`@`?[new ie(e,t.slice(1),r.eventContext)]:i===`?`?[new te(e,t.slice(1),n)]:new T(e,t,n).parts}handleTextExpression(e){return new D(e)}};typeof window<`u`&&(window.litHtmlVersions||(window.litHtmlVersions=[])).push(`1.4.1`);var N=(e,...t)=>new S(e,t,`html`,M),P=(e,t)=>`${e}--${t}`,F=!0;window.ShadyCSS===void 0?F=!1:window.ShadyCSS.prepareTemplateDom===void 0&&(console.warn(`Incompatible ShadyCSS version detected. Please update to at least @webcomponents/webcomponentsjs@2.0.2 and @webcomponents/shadycss@1.3.1.`),F=!1);var se=e=>t=>{let r=P(t.type,e),i=k.get(r);i===void 0&&(i={stringsArray:new WeakMap,keyString:new Map},k.set(r,i));let a=i.stringsArray.get(t.strings);if(a!==void 0)return a;let s=t.strings.join(n);if(a=i.keyString.get(s),a===void 0){let n=t.getTemplateElement();F&&window.ShadyCSS.prepareTemplateDom(n,e),a=new o(t,n),i.keyString.set(s,a)}return i.stringsArray.set(t.strings,a),a},ce=[`html`,`svg`],le=e=>{ce.forEach(t=>{let n=k.get(P(t,e));n!==void 0&&n.keyString.forEach(e=>{let{element:{content:t}}=e,n=new Set;Array.from(t.querySelectorAll(`style`)).forEach(e=>{n.add(e)}),f(e,n)})})},I=new Set,ue=(e,t,n)=>{I.add(e);let r=n?n.element:document.createElement(`template`),i=t.querySelectorAll(`style`),{length:a}=i;if(a===0){window.ShadyCSS.prepareTemplateStyles(r,e);return}let o=document.createElement(`style`);for(let e=0;e<a;e++){let t=i[e];t.parentNode.removeChild(t),o.textContent+=t.textContent}le(e);let s=r.content;n?h(n,o,s.firstChild):s.insertBefore(o,s.firstChild),window.ShadyCSS.prepareTemplateStyles(r,e);let c=s.querySelector(`style`);if(window.ShadyCSS.nativeShadow&&c!==null)t.insertBefore(c.cloneNode(!0),t.firstChild);else if(n){s.insertBefore(o,s.firstChild);let e=new Set;e.add(o),f(n,e)}},de=(e,n,r)=>{if(!r||typeof r!=`object`||!r.scopeName)throw Error("The `scopeName` option is required.");let i=r.scopeName,a=A.has(n),o=F&&n.nodeType===11&&!!n.host,s=o&&!I.has(i),c=s?document.createDocumentFragment():n;if(j(e,c,Object.assign({templateFactory:se(i)},r)),s){let e=A.get(c);A.delete(c),ue(i,c,e.value instanceof b?e.value.template:void 0),t(n,n.firstChild),n.appendChild(c),A.set(n,e)}!a&&o&&window.ShadyCSS.styleElement(n.host)},L;window.JSCompiler_renameProperty=(e,t)=>e;var R={toAttribute(e,t){switch(t){case Boolean:return e?``:null;case Object:case Array:return e==null?e:JSON.stringify(e)}return e},fromAttribute(e,t){switch(t){case Boolean:return e!==null;case Number:return e===null?null:Number(e);case Object:case Array:return JSON.parse(e)}return e}},z=(e,t)=>t!==e&&(t===t||e===e),B={attribute:!0,type:String,converter:R,reflect:!1,hasChanged:z},V=1,H=4,U=8,W=16,G=`finalized`,K=class extends HTMLElement{constructor(){super(),this.initialize()}static get observedAttributes(){this.finalize();let e=[];return this._classProperties.forEach((t,n)=>{let r=this._attributeNameForProperty(n,t);r!==void 0&&(this._attributeToPropertyMap.set(r,n),e.push(r))}),e}static _ensureClassProperties(){if(!this.hasOwnProperty(JSCompiler_renameProperty(`_classProperties`,this))){this._classProperties=new Map;let e=Object.getPrototypeOf(this)._classProperties;e!==void 0&&e.forEach((e,t)=>this._classProperties.set(t,e))}}static createProperty(e,t=B){if(this._ensureClassProperties(),this._classProperties.set(e,t),t.noAccessor||this.prototype.hasOwnProperty(e))return;let n=typeof e==`symbol`?Symbol():`__${e}`,r=this.getPropertyDescriptor(e,n,t);r!==void 0&&Object.defineProperty(this.prototype,e,r)}static getPropertyDescriptor(e,t,n){return{get(){return this[t]},set(r){let i=this[e];this[t]=r,this.requestUpdateInternal(e,i,n)},configurable:!0,enumerable:!0}}static getPropertyOptions(e){return this._classProperties&&this._classProperties.get(e)||B}static finalize(){let e=Object.getPrototypeOf(this);if(e.hasOwnProperty(G)||e.finalize(),this[G]=!0,this._ensureClassProperties(),this._attributeToPropertyMap=new Map,this.hasOwnProperty(JSCompiler_renameProperty(`properties`,this))){let e=this.properties,t=[...Object.getOwnPropertyNames(e),...typeof Object.getOwnPropertySymbols==`function`?Object.getOwnPropertySymbols(e):[]];for(let n of t)this.createProperty(n,e[n])}}static _attributeNameForProperty(e,t){let n=t.attribute;return n===!1?void 0:typeof n==`string`?n:typeof e==`string`?e.toLowerCase():void 0}static _valueHasChanged(e,t,n=z){return n(e,t)}static _propertyValueFromAttribute(e,t){let n=t.type,r=t.converter||R,i=typeof r==`function`?r:r.fromAttribute;return i?i(e,n):e}static _propertyValueToAttribute(e,t){if(t.reflect===void 0)return;let n=t.type,r=t.converter;return(r&&r.toAttribute||R.toAttribute)(e,n)}initialize(){this._updateState=0,this._updatePromise=new Promise(e=>this._enableUpdatingResolver=e),this._changedProperties=new Map,this._saveInstanceProperties(),this.requestUpdateInternal()}_saveInstanceProperties(){this.constructor._classProperties.forEach((e,t)=>{if(this.hasOwnProperty(t)){let e=this[t];delete this[t],this._instanceProperties||=new Map,this._instanceProperties.set(t,e)}})}_applyInstanceProperties(){this._instanceProperties.forEach((e,t)=>this[t]=e),this._instanceProperties=void 0}connectedCallback(){this.enableUpdating()}enableUpdating(){this._enableUpdatingResolver!==void 0&&(this._enableUpdatingResolver(),this._enableUpdatingResolver=void 0)}disconnectedCallback(){}attributeChangedCallback(e,t,n){t!==n&&this._attributeToProperty(e,n)}_propertyToAttribute(e,t,n=B){let r=this.constructor,i=r._attributeNameForProperty(e,n);if(i!==void 0){let e=r._propertyValueToAttribute(t,n);if(e===void 0)return;this._updateState|=U,e==null?this.removeAttribute(i):this.setAttribute(i,e),this._updateState&=~U}}_attributeToProperty(e,t){if(this._updateState&U)return;let n=this.constructor,r=n._attributeToPropertyMap.get(e);if(r!==void 0){let e=n.getPropertyOptions(r);this._updateState|=W,this[r]=n._propertyValueFromAttribute(t,e),this._updateState&=~W}}requestUpdateInternal(e,t,n){let r=!0;if(e!==void 0){let i=this.constructor;n||=i.getPropertyOptions(e),i._valueHasChanged(this[e],t,n.hasChanged)?(this._changedProperties.has(e)||this._changedProperties.set(e,t),n.reflect===!0&&!(this._updateState&W)&&(this._reflectingProperties===void 0&&(this._reflectingProperties=new Map),this._reflectingProperties.set(e,n))):r=!1}!this._hasRequestedUpdate&&r&&(this._updatePromise=this._enqueueUpdate())}requestUpdate(e,t){return this.requestUpdateInternal(e,t),this.updateComplete}async _enqueueUpdate(){this._updateState|=H;try{await this._updatePromise}catch{}let e=this.performUpdate();return e!=null&&await e,!this._hasRequestedUpdate}get _hasRequestedUpdate(){return this._updateState&H}get hasUpdated(){return this._updateState&V}performUpdate(){if(!this._hasRequestedUpdate)return;this._instanceProperties&&this._applyInstanceProperties();let e=!1,t=this._changedProperties;try{e=this.shouldUpdate(t),e?this.update(t):this._markUpdated()}catch(t){throw e=!1,this._markUpdated(),t}e&&(this._updateState&V||(this._updateState|=V,this.firstUpdated(t)),this.updated(t))}_markUpdated(){this._changedProperties=new Map,this._updateState&=~H}get updateComplete(){return this._getUpdateComplete()}_getUpdateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._updatePromise}shouldUpdate(e){return!0}update(e){this._reflectingProperties!==void 0&&this._reflectingProperties.size>0&&(this._reflectingProperties.forEach((e,t)=>this._propertyToAttribute(t,this[t],e)),this._reflectingProperties=void 0),this._markUpdated()}updated(e){}firstUpdated(e){}};L=G,K[L]=!0;var q=Element.prototype;q.msMatchesSelector||q.webkitMatchesSelector;var J=window.ShadowRoot&&(window.ShadyCSS===void 0||window.ShadyCSS.nativeShadow)&&`adoptedStyleSheets`in Document.prototype&&`replace`in CSSStyleSheet.prototype,Y=Symbol(),X=class{constructor(e,t){if(t!==Y)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=e}get styleSheet(){return this._styleSheet===void 0&&(J?(this._styleSheet=new CSSStyleSheet,this._styleSheet.replaceSync(this.cssText)):this._styleSheet=null),this._styleSheet}toString(){return this.cssText}},fe=e=>new X(String(e),Y),pe=e=>{if(e instanceof X)return e.cssText;if(typeof e==`number`)return e;throw Error(`Value passed to 'css' function must be a 'css' function result: ${e}. Use 'unsafeCSS' to pass non-literal values, but
-            take care to ensure page security.`)},Z=(e,...t)=>new X(t.reduce((t,n,r)=>t+pe(n)+e[r+1],e[0]),Y);(window.litElementVersions||(window.litElementVersions=[])).push(`2.5.1`);var Q={},$=class extends K{static getStyles(){return this.styles}static _getUniqueStyles(){if(this.hasOwnProperty(JSCompiler_renameProperty(`_styles`,this)))return;let e=this.getStyles();if(Array.isArray(e)){let t=(e,n)=>e.reduceRight((e,n)=>Array.isArray(n)?t(n,e):(e.add(n),e),n),n=t(e,new Set),r=[];n.forEach(e=>r.unshift(e)),this._styles=r}else this._styles=e===void 0?[]:[e];this._styles=this._styles.map(e=>e instanceof CSSStyleSheet&&!J?fe(Array.prototype.slice.call(e.cssRules).reduce((e,t)=>e+t.cssText,``)):e)}initialize(){super.initialize(),this.constructor._getUniqueStyles(),this.renderRoot=this.createRenderRoot(),window.ShadowRoot&&this.renderRoot instanceof window.ShadowRoot&&this.adoptStyles()}createRenderRoot(){return this.attachShadow(this.constructor.shadowRootOptions)}adoptStyles(){let e=this.constructor._styles;e.length!==0&&(window.ShadyCSS!==void 0&&!window.ShadyCSS.nativeShadow?window.ShadyCSS.ScopingShim.prepareAdoptedCssText(e.map(e=>e.cssText),this.localName):J?this.renderRoot.adoptedStyleSheets=e.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet):this._needsShimAdoptedStyleSheets=!0)}connectedCallback(){super.connectedCallback(),this.hasUpdated&&window.ShadyCSS!==void 0&&window.ShadyCSS.styleElement(this)}update(e){let t=this.render();super.update(e),t!==Q&&this.constructor.render(t,this.renderRoot,{scopeName:this.localName,eventContext:this}),this._needsShimAdoptedStyleSheets&&(this._needsShimAdoptedStyleSheets=!1,this.constructor._styles.forEach(e=>{let t=document.createElement(`style`);t.textContent=e.cssText,this.renderRoot.appendChild(t)}))}render(){return Q}};$.finalized=!0,$.render=de,$.shadowRootOptions={mode:`open`};var me=`/assets/foto-CyaybUVG.jpeg`,he={es:{nav:{inicio:`Inicio`,about:`Sobre Mi`,experience:`Experiencia`,skills:`Habilidades`,education:`Educacion`,contact:`Contacto`},hero:{badge:`Disponible para nuevos proyectos`,subtitle:`Ingeniera en Computacion • Full Stack Developer`,description:`Desarrolladora full stack con experiencia en React, Next.js, Angular, Django, Node.js, Python y mas. Apasionada por crear soluciones tecnologicas de impacto.`,cta:`Contactame`,statYears:`Anos exp.`,statTech:`Tecnologias`,statProjects:`Proyectos`},about:{label:`Conoceme`,title:`Sobre Mi`,p1:`Ingeniera en Ciencias de la Computacion con itinerario en Desarrollo de Software por la Universidad Nacional de Loja. Cuento con experiencia en proyectos academicos, de vinculacion y profesionales.`,p2:`Me caracterizo por mi responsabilidad, pensamiento logico, adaptabilidad y capacidad para trabajar en equipo. Siempre estoy en busqueda de nuevos desafios que me permitan crecer profesionalmente.`,location:`Ubicacion`,phone:`Telefono`,languages:`Idiomas`,langValue:`Espanol (Nativo), Ingles (Basico)`,cardFullstack:`Desarrollo frontend y backend con tecnologias modernas`,cardMobile:`Apps moviles con Flutter y React Native`,cardQA:`Pruebas funcionales, de regresion y gestion de calidad`,cardManagement:`Gestion`,cardManagementDesc:`Scrum, planificacion agil y coordinacion de proyectos`},experience:{label:`Trayectoria`,title:`Experiencia Profesional`,job1Role:`Programadora Junior de Software`,job1Date:`Ene 2026 – Abr 2026`,job1Company:`Dataglov S.A.S. • Presencial, jornada completa`,job1Desc:[`Desarrollo y mantenimiento de Sudial, plataforma de gestion de chatbots de WhatsApp, en backend y frontend.`,`Implementacion de modulos completos, correccion de errores y optimizacion de funcionalidades.`,`Desarrollo de aplicacion movil con React Native para agentes de atencion al cliente.`],job2Role:`Gestora de Proyectos | QA | Frontend Dev`,job2Date:`Sep 2025 – Ene 2026`,job2Desc:[`Desarrollo frontend en Angular para ANA, sistema de gestion de inventarios, facturacion y firmas electronicas.`,`Gestion y coordinacion de proyectos con Jira, planificacion agil y control de incidencias.`,`Aseguramiento de calidad mediante pruebas funcionales y de regresion.`],job3Role:`Desarrolladora Junior – Node.js`,job3Date:`Feb 2024 – Ago 2025`,job3Company:`ARAnet • Pangui, Ecuador (Remoto)`,job3Desc:[`Desarrollo y mantenimiento de sistema de gestion interna: registro de clientes, planes de internet, facturacion.`,`Colaboracion en equipo remoto para implementacion de funcionalidades y mejoras.`],job4Role:`Desarrolladora Full Stack – Titulacion`,job4Date:`Mar 2024 – Ago 2025`,job4Company:`Universidad Nacional de Loja • Proyecto de Vinculacion`,job4Desc:[`Desarrollo de aplicacion web para gestion sostenible del ruido vehicular en la ciudad de Loja.`,`Backend en Jakarta EE y frontend en Flutter.`],job5Role:`Practicas Preprofesionales`,job5Date:`Nov 2023 – Ene 2024`,job5Company:`Direccion de TI • Universidad Nacional de Loja`,job5Desc:[`Desarrollo del Visor Climatico de la Universidad Nacional de Loja con Django (backend y frontend).`]},skills:{label:`Competencias`,title:`Habilidades Tecnicas`,languages:`Lenguajes`,frontend:`Frontend`,backend:`Backend`,databases:`Bases de Datos`,tools:`Herramientas`,qa:`QA / Testing`,qaItems:[`Pruebas funcionales`,`Pruebas de regresion`,`Gestion de pruebas`],creativity:`Creatividad`,leadership:`Liderazgo`,problemSolving:`Resolucion de problemas`,teamwork:`Trabajo en equipo`,communication:`Comunicacion efectiva`,fastLearning:`Aprendizaje rapido`},education:{label:`Formacion`,title:`Educacion`,degree:`Ingenieria en Ciencias de la Computacion`,school:`Universidad Nacional de Loja`,track:`Itinerario: Desarrollo de Software`,date:`Abr 2021 – Oct 2025`,certsLabel:`Formacion complementaria`,certsTitle:`Certificaciones`},contact:{label:`Hablemos`,title:`Contacto`,phone:`Telefono`},footer:`Todos los derechos reservados.`},en:{nav:{inicio:`Home`,about:`About`,experience:`Experience`,skills:`Skills`,education:`Education`,contact:`Contact`},hero:{badge:`Available for new projects`,subtitle:`Computer Science Engineer • Full Stack Developer`,description:`Full stack developer experienced in React, Next.js, Angular, Django, Node.js, Python and more. Passionate about building impactful tech solutions.`,cta:`Contact me`,statYears:`Years exp.`,statTech:`Technologies`,statProjects:`Projects`},about:{label:`Get to know me`,title:`About Me`,p1:`Computer Science Engineer with a Software Development track from Universidad Nacional de Loja. Experienced in academic, outreach and professional projects.`,p2:`I stand out for my responsibility, logical thinking, adaptability and teamwork skills. I am always looking for new challenges that allow me to grow professionally.`,location:`Location`,phone:`Phone`,languages:`Languages`,langValue:`Spanish (Native), English (Basic)`,cardFullstack:`Frontend and backend development with modern technologies`,cardMobile:`Mobile apps with Flutter and React Native`,cardQA:`Functional testing, regression testing and quality management`,cardManagement:`Management`,cardManagementDesc:`Scrum, agile planning and project coordination`},experience:{label:`Career path`,title:`Professional Experience`,job1Role:`Junior Software Developer`,job1Date:`Jan 2026 – Apr 2026`,job1Company:`Dataglov S.A.S. • On-site, full-time`,job1Desc:[`Development and maintenance of Sudial, a WhatsApp chatbot management platform, working on backend and frontend.`,`Implementation of complete modules, bug fixes and feature optimization.`,`Mobile app development with React Native for customer service agents.`],job2Role:`Project Manager | QA | Frontend Dev`,job2Date:`Sep 2025 – Jan 2026`,job2Desc:[`Frontend development in Angular for ANA, an inventory management, billing and electronic signature system.`,`Project management and coordination with Jira, agile planning and issue tracking.`,`Quality assurance through functional and regression testing.`],job3Role:`Junior Developer – Node.js`,job3Date:`Feb 2024 – Aug 2025`,job3Company:`ARAnet • Pangui, Ecuador (Remote)`,job3Desc:[`Development and maintenance of an internal management system: client registration, internet plans, billing.`,`Remote team collaboration for feature implementation and system improvements.`],job4Role:`Full Stack Developer – Thesis Project`,job4Date:`Mar 2024 – Aug 2025`,job4Company:`Universidad Nacional de Loja • Outreach Project`,job4Desc:[`Web application development for sustainable vehicle noise management in Loja city.`,`Backend in Jakarta EE and frontend in Flutter.`],job5Role:`Pre-professional Internship`,job5Date:`Nov 2023 – Jan 2024`,job5Company:`IT Department • Universidad Nacional de Loja`,job5Desc:[`Development of the Climate Viewer for Universidad Nacional de Loja using Django (backend and frontend).`]},skills:{label:`Competencies`,title:`Technical Skills`,languages:`Languages`,frontend:`Frontend`,backend:`Backend`,databases:`Databases`,tools:`Tools`,qa:`QA / Testing`,qaItems:[`Functional testing`,`Regression testing`,`Test management`],creativity:`Creativity`,leadership:`Leadership`,problemSolving:`Problem solving`,teamwork:`Teamwork`,communication:`Effective communication`,fastLearning:`Fast learner`},education:{label:`Background`,title:`Education`,degree:`Computer Science Engineering`,school:`Universidad Nacional de Loja`,track:`Track: Software Development`,date:`Apr 2021 – Oct 2025`,certsLabel:`Continuing education`,certsTitle:`Certifications`},contact:{label:`Let's talk`,title:`Contact`,phone:`Phone`},footer:`All rights reserved.`}},ge=class extends ${static get properties(){return{activeSection:{type:String},menuOpen:{type:Boolean},headerScrolled:{type:Boolean},lang:{type:String}}}constructor(){super(),this.activeSection=`inicio`,this.menuOpen=!1,this.headerScrolled=!1,this.lang=`es`}get t(){return he[this.lang]}_toggleLang(){this.lang=this.lang===`es`?`en`:`es`}connectedCallback(){super.connectedCallback(),this._boundScroll=this._handleScroll.bind(this),window.addEventListener(`scroll`,this._boundScroll)}disconnectedCallback(){super.disconnectedCallback(),window.removeEventListener(`scroll`,this._boundScroll)}_handleScroll(){this.headerScrolled=window.scrollY>50;let e=this.shadowRoot.querySelectorAll(`section[id]`),t=`inicio`;e.forEach(e=>{let n=e.offsetTop-100;window.scrollY>=n&&(t=e.getAttribute(`id`))}),this.activeSection=t}_toggleMenu(){this.menuOpen=!this.menuOpen}_closeMenu(){this.menuOpen=!1}_scrollTo(e){this._closeMenu();let t=this.shadowRoot.querySelector(`#${e}`);t&&t.scrollIntoView({behavior:`smooth`,block:`start`})}static get styles(){return Z`
+            take care to ensure page security.`)},Z=(e,...t)=>new X(t.reduce((t,n,r)=>t+pe(n)+e[r+1],e[0]),Y);(window.litElementVersions||(window.litElementVersions=[])).push(`2.5.1`);var Q={},$=class extends K{static getStyles(){return this.styles}static _getUniqueStyles(){if(this.hasOwnProperty(JSCompiler_renameProperty(`_styles`,this)))return;let e=this.getStyles();if(Array.isArray(e)){let t=(e,n)=>e.reduceRight((e,n)=>Array.isArray(n)?t(n,e):(e.add(n),e),n),n=t(e,new Set),r=[];n.forEach(e=>r.unshift(e)),this._styles=r}else this._styles=e===void 0?[]:[e];this._styles=this._styles.map(e=>e instanceof CSSStyleSheet&&!J?fe(Array.prototype.slice.call(e.cssRules).reduce((e,t)=>e+t.cssText,``)):e)}initialize(){super.initialize(),this.constructor._getUniqueStyles(),this.renderRoot=this.createRenderRoot(),window.ShadowRoot&&this.renderRoot instanceof window.ShadowRoot&&this.adoptStyles()}createRenderRoot(){return this.attachShadow(this.constructor.shadowRootOptions)}adoptStyles(){let e=this.constructor._styles;e.length!==0&&(window.ShadyCSS!==void 0&&!window.ShadyCSS.nativeShadow?window.ShadyCSS.ScopingShim.prepareAdoptedCssText(e.map(e=>e.cssText),this.localName):J?this.renderRoot.adoptedStyleSheets=e.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet):this._needsShimAdoptedStyleSheets=!0)}connectedCallback(){super.connectedCallback(),this.hasUpdated&&window.ShadyCSS!==void 0&&window.ShadyCSS.styleElement(this)}update(e){let t=this.render();super.update(e),t!==Q&&this.constructor.render(t,this.renderRoot,{scopeName:this.localName,eventContext:this}),this._needsShimAdoptedStyleSheets&&(this._needsShimAdoptedStyleSheets=!1,this.constructor._styles.forEach(e=>{let t=document.createElement(`style`);t.textContent=e.cssText,this.renderRoot.appendChild(t)}))}render(){return Q}};$.finalized=!0,$.render=de,$.shadowRootOptions={mode:`open`};var me=`/assets/foto-BCAXGiz8.jpeg`,he={es:{nav:{inicio:`Inicio`,about:`Sobre Mi`,experience:`Experiencia`,skills:`Habilidades`,education:`Educacion`,contact:`Contacto`},hero:{badge:`Disponible para nuevos proyectos`,subtitle:`Ingeniera en Computacion • Full Stack Developer`,description:`Desarrolladora full stack con experiencia en React, Next.js, Angular, Django, Node.js, Python y mas. Apasionada por crear soluciones tecnologicas de impacto.`,cta:`Contactame`,statYears:`Anos exp.`,statTech:`Tecnologias`,statProjects:`Proyectos`},about:{label:`Conoceme`,title:`Sobre Mi`,p1:`Ingeniera en Ciencias de la Computacion con itinerario en Desarrollo de Software por la Universidad Nacional de Loja. Cuento con experiencia en proyectos academicos, de vinculacion y profesionales.`,p2:`Me caracterizo por mi responsabilidad, pensamiento logico, adaptabilidad y capacidad para trabajar en equipo. Siempre estoy en busqueda de nuevos desafios que me permitan crecer profesionalmente.`,location:`Ubicacion`,phone:`Telefono`,languages:`Idiomas`,langValue:`Espanol (Nativo), Ingles (Basico)`,cardFullstack:`Desarrollo frontend y backend con tecnologias modernas`,cardMobile:`Apps moviles con Flutter y React Native`,cardQA:`Pruebas funcionales, de regresion y gestion de calidad`,cardManagement:`Gestion`,cardManagementDesc:`Scrum, planificacion agil y coordinacion de proyectos`},experience:{label:`Trayectoria`,title:`Experiencia Profesional`,job1Role:`Programadora Junior de Software`,job1Date:`Ene 2026 – Abr 2026`,job1Company:`Dataglov S.A.S. • Presencial, jornada completa`,job1Desc:[`Desarrollo y mantenimiento de Sudial, plataforma de gestion de chatbots de WhatsApp, en backend y frontend.`,`Implementacion de modulos completos, correccion de errores y optimizacion de funcionalidades.`,`Desarrollo de aplicacion movil con React Native para agentes de atencion al cliente.`],job2Role:`Gestora de Proyectos | QA | Frontend Dev`,job2Date:`Sep 2025 – Ene 2026`,job2Desc:[`Desarrollo frontend en Angular para ANA, sistema de gestion de inventarios, facturacion y firmas electronicas.`,`Gestion y coordinacion de proyectos con Jira, planificacion agil y control de incidencias.`,`Aseguramiento de calidad mediante pruebas funcionales y de regresion.`],job3Role:`Desarrolladora Junior – Node.js`,job3Date:`Feb 2024 – Ago 2025`,job3Company:`ARAnet • Pangui, Ecuador (Remoto)`,job3Desc:[`Desarrollo y mantenimiento de sistema de gestion interna: registro de clientes, planes de internet, facturacion.`,`Colaboracion en equipo remoto para implementacion de funcionalidades y mejoras.`],job4Role:`Desarrolladora Full Stack – Titulacion`,job4Date:`Mar 2024 – Ago 2025`,job4Company:`Universidad Nacional de Loja • Proyecto de Vinculacion`,job4Desc:[`Desarrollo de aplicacion web para gestion sostenible del ruido vehicular en la ciudad de Loja.`,`Backend en Jakarta EE y frontend en Flutter.`],job5Role:`Practicas Preprofesionales`,job5Date:`Nov 2023 – Ene 2024`,job5Company:`Direccion de TI • Universidad Nacional de Loja`,job5Desc:[`Desarrollo del Visor Climatico de la Universidad Nacional de Loja con Django (backend y frontend).`]},skills:{label:`Competencias`,title:`Habilidades Tecnicas`,languages:`Lenguajes`,frontend:`Frontend`,backend:`Backend`,databases:`Bases de Datos`,tools:`Herramientas`,qa:`QA / Testing`,qaItems:[`Pruebas funcionales`,`Pruebas de regresion`,`Gestion de pruebas`],creativity:`Creatividad`,leadership:`Liderazgo`,problemSolving:`Resolucion de problemas`,teamwork:`Trabajo en equipo`,communication:`Comunicacion efectiva`,fastLearning:`Aprendizaje rapido`},education:{label:`Formacion`,title:`Educacion`,degree:`Ingenieria en Ciencias de la Computacion`,school:`Universidad Nacional de Loja`,track:`Itinerario: Desarrollo de Software`,date:`Abr 2021 – Oct 2025`,certsLabel:`Formacion complementaria`,certsTitle:`Certificaciones`},contact:{label:`Hablemos`,title:`Contacto`,phone:`Telefono`},footer:`Todos los derechos reservados.`},en:{nav:{inicio:`Home`,about:`About`,experience:`Experience`,skills:`Skills`,education:`Education`,contact:`Contact`},hero:{badge:`Available for new projects`,subtitle:`Computer Science Engineer • Full Stack Developer`,description:`Full stack developer experienced in React, Next.js, Angular, Django, Node.js, Python and more. Passionate about building impactful tech solutions.`,cta:`Contact me`,statYears:`Years exp.`,statTech:`Technologies`,statProjects:`Projects`},about:{label:`Get to know me`,title:`About Me`,p1:`Computer Science Engineer with a Software Development track from Universidad Nacional de Loja. Experienced in academic, outreach and professional projects.`,p2:`I stand out for my responsibility, logical thinking, adaptability and teamwork skills. I am always looking for new challenges that allow me to grow professionally.`,location:`Location`,phone:`Phone`,languages:`Languages`,langValue:`Spanish (Native), English (Basic)`,cardFullstack:`Frontend and backend development with modern technologies`,cardMobile:`Mobile apps with Flutter and React Native`,cardQA:`Functional testing, regression testing and quality management`,cardManagement:`Management`,cardManagementDesc:`Scrum, agile planning and project coordination`},experience:{label:`Career path`,title:`Professional Experience`,job1Role:`Junior Software Developer`,job1Date:`Jan 2026 – Apr 2026`,job1Company:`Dataglov S.A.S. • On-site, full-time`,job1Desc:[`Development and maintenance of Sudial, a WhatsApp chatbot management platform, working on backend and frontend.`,`Implementation of complete modules, bug fixes and feature optimization.`,`Mobile app development with React Native for customer service agents.`],job2Role:`Project Manager | QA | Frontend Dev`,job2Date:`Sep 2025 – Jan 2026`,job2Desc:[`Frontend development in Angular for ANA, an inventory management, billing and electronic signature system.`,`Project management and coordination with Jira, agile planning and issue tracking.`,`Quality assurance through functional and regression testing.`],job3Role:`Junior Developer – Node.js`,job3Date:`Feb 2024 – Aug 2025`,job3Company:`ARAnet • Pangui, Ecuador (Remote)`,job3Desc:[`Development and maintenance of an internal management system: client registration, internet plans, billing.`,`Remote team collaboration for feature implementation and system improvements.`],job4Role:`Full Stack Developer – Thesis Project`,job4Date:`Mar 2024 – Aug 2025`,job4Company:`Universidad Nacional de Loja • Outreach Project`,job4Desc:[`Web application development for sustainable vehicle noise management in Loja city.`,`Backend in Jakarta EE and frontend in Flutter.`],job5Role:`Pre-professional Internship`,job5Date:`Nov 2023 – Jan 2024`,job5Company:`IT Department • Universidad Nacional de Loja`,job5Desc:[`Development of the Climate Viewer for Universidad Nacional de Loja using Django (backend and frontend).`]},skills:{label:`Competencies`,title:`Technical Skills`,languages:`Languages`,frontend:`Frontend`,backend:`Backend`,databases:`Databases`,tools:`Tools`,qa:`QA / Testing`,qaItems:[`Functional testing`,`Regression testing`,`Test management`],creativity:`Creativity`,leadership:`Leadership`,problemSolving:`Problem solving`,teamwork:`Teamwork`,communication:`Effective communication`,fastLearning:`Fast learner`},education:{label:`Background`,title:`Education`,degree:`Computer Science Engineering`,school:`Universidad Nacional de Loja`,track:`Track: Software Development`,date:`Apr 2021 – Oct 2025`,certsLabel:`Continuing education`,certsTitle:`Certifications`},contact:{label:`Let's talk`,title:`Contact`,phone:`Phone`},footer:`All rights reserved.`}},ge=class extends ${static get properties(){return{activeSection:{type:String},menuOpen:{type:Boolean},headerScrolled:{type:Boolean},lang:{type:String},typedText:{type:String},typedRole:{type:Number},cursorBlink:{type:Boolean},consoleLines:{type:Array},uptimeSec:{type:Number},cpuLoad:{type:Number}}}constructor(){super(),this.activeSection=`inicio`,this.menuOpen=!1,this.headerScrolled=!1,this.lang=`es`,this.typedText=``,this.typedRole=0,this.cursorBlink=!0,this.consoleLines=[],this.uptimeSec=0,this.cpuLoad=42,this._roles=[`Full Stack Developer`,`React + Next.js`,`Python + Django`,`Node.js + TypeScript`,`Mobile Developer`,`QA Engineer`],this._gitLog=[{hash:`a3f2c91`,msg:`feat(portfolio): ship dark theme + animations`,branch:`main`},{hash:`8e1b774`,msg:`feat(sudial): WhatsApp bot management module`,branch:`develop`},{hash:`5d9a02c`,msg:`feat(ana): inventory + e-signature flow`,branch:`feature/ana`},{hash:`21fc4e8`,msg:`fix(api): retry policy on rate-limit 429s`,branch:`hotfix`},{hash:`c70f156`,msg:`refactor: migrate legacy Node 16 -> 20`,branch:`main`},{hash:`f02ab9d`,msg:`test: regression suite for billing module`,branch:`qa`}]}get t(){return he[this.lang]}_toggleLang(){this.lang=this.lang===`es`?`en`:`es`}connectedCallback(){super.connectedCallback(),this._boundScroll=this._handleScroll.bind(this),window.addEventListener(`scroll`,this._boundScroll),this._startTyping(),this._startConsole(),this._startStatusBar()}disconnectedCallback(){super.disconnectedCallback(),window.removeEventListener(`scroll`,this._boundScroll),this._typeTimer&&clearTimeout(this._typeTimer),this._consoleTimer&&clearTimeout(this._consoleTimer),this._cursorTimer&&clearInterval(this._cursorTimer),this._statusTimer&&clearInterval(this._statusTimer),this._revealObs&&this._revealObs.disconnect()}firstUpdated(){this._setupReveal()}updated(e){e.has(`lang`)&&this._setupReveal()}_setupReveal(){this._revealObs&&this._revealObs.disconnect();let e=this.shadowRoot.querySelectorAll(`.reveal`);this._revealObs=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add(`in-view`),this._revealObs.unobserve(e.target))})},{threshold:.12}),e.forEach(e=>this._revealObs.observe(e))}_startTyping(){let e=0,t=()=>{let n=this._roles[this.typedRole];e<=n.length?(this.typedText=n.slice(0,e),e+=1,this._typeTimer=setTimeout(t,80)):this._typeTimer=setTimeout(()=>{let n=()=>{this.typedText.length>0?(this.typedText=this.typedText.slice(0,-1),this._typeTimer=setTimeout(n,35)):(this.typedRole=(this.typedRole+1)%this._roles.length,e=0,this._typeTimer=setTimeout(t,250))};n()},1600)};t(),this._cursorTimer=setInterval(()=>{this.cursorBlink=!this.cursorBlink},530)}_startConsole(){let e=[{type:`cmd`,text:`npm run dev`},{type:`out`,text:`> portafolio@1.0.0 dev`},{type:`out`,text:`> vite`},{type:`info`,text:`VITE v5.0.0  ready in 312 ms`},{type:`ok`,text:`→ Local:   http://localhost:5173/`},{type:`ok`,text:`→ Network: ready`},{type:`cmd`,text:`git status`},{type:`out`,text:`On branch main`},{type:`out`,text:`nothing to commit, working tree clean`},{type:`cmd`,text:`curl /api/portfolio.json`},{type:`json`,text:`{ "name": "Karen Gonzaga", "stack": ["React","Node","Python"] }`},{type:`cmd`,text:`docker ps`},{type:`ok`,text:`CONTAINER  STATUS         IMAGE`},{type:`out`,text:`a1b2c3d4   Up 2 hours     portfolio:latest`}],t=0,n=()=>{this.consoleLines=[...this.consoleLines,e[t%e.length]].slice(-9),t+=1,this._consoleTimer=setTimeout(n,1100)};n()}_startStatusBar(){this._statusTimer=setInterval(()=>{this.uptimeSec+=1,this.cpuLoad=30+Math.floor(Math.random()*45)},1e3)}_fmtUptime(){let e=Math.floor(this.uptimeSec/60),t=this.uptimeSec%60;return`${String(e).padStart(2,`0`)}:${String(t).padStart(2,`0`)}`}_handleScroll(){this.headerScrolled=window.scrollY>50;let e=this.shadowRoot.querySelectorAll(`section[id]`),t=`inicio`;e.forEach(e=>{let n=e.offsetTop-100;window.scrollY>=n&&(t=e.getAttribute(`id`))}),this.activeSection=t}_toggleMenu(){this.menuOpen=!this.menuOpen}_closeMenu(){this.menuOpen=!1}_scrollTo(e){this._closeMenu();let t=this.shadowRoot.querySelector(`#${e}`);t&&t.scrollIntoView({behavior:`smooth`,block:`start`})}static get styles(){return Z`
       :host {
         display: block;
         --purple-50: #faf5ff;
@@ -139,6 +139,247 @@
       .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
       .hamburger.open span:nth-child(2) { opacity: 0; }
       .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+      /* ===================== REVEAL ANIMATIONS ===================== */
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .reveal.in-view { opacity: 1; transform: none; }
+      .reveal.delay-1 { transition-delay: 0.08s; }
+      .reveal.delay-2 { transition-delay: 0.16s; }
+      .reveal.delay-3 { transition-delay: 0.24s; }
+      .reveal.delay-4 { transition-delay: 0.32s; }
+      .reveal.delay-5 { transition-delay: 0.40s; }
+
+      /* ===================== CODE RAIN (matrix) ===================== */
+      .code-rain {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+        opacity: 0.18;
+      }
+
+      .code-rain span {
+        position: absolute;
+        top: -10%;
+        font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+        font-size: 13px;
+        color: var(--purple-400);
+        white-space: nowrap;
+        text-shadow: 0 0 8px rgba(139, 92, 246, 0.7);
+        animation: rainDrop linear infinite;
+        writing-mode: vertical-rl;
+        letter-spacing: 2px;
+      }
+
+      @keyframes rainDrop {
+        0% { transform: translateY(-100%); opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { transform: translateY(110vh); opacity: 0; }
+      }
+
+      /* ===================== FLOATING CODE SNIPPETS ===================== */
+      .floating-snippets {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+      }
+
+      .float-snip {
+        position: absolute;
+        font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+        font-size: 12px;
+        color: rgba(168, 85, 247, 0.35);
+        background: rgba(139, 92, 246, 0.05);
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid rgba(139, 92, 246, 0.12);
+        backdrop-filter: blur(4px);
+        animation: floatY 12s ease-in-out infinite;
+        white-space: nowrap;
+      }
+
+      @keyframes floatY {
+        0%, 100% { transform: translateY(0) translateX(0); opacity: 0.4; }
+        50% { transform: translateY(-25px) translateX(10px); opacity: 0.8; }
+      }
+
+      /* ===================== TERMINAL / CONSOLES ===================== */
+      .terminal {
+        background: rgba(10, 10, 15, 0.92);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        border-radius: 12px;
+        font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(139, 92, 246, 0.15);
+        backdrop-filter: blur(10px);
+        overflow: hidden;
+        font-size: 0.78rem;
+        max-width: 100%;
+      }
+
+      .terminal-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: linear-gradient(180deg, rgba(36, 36, 62, 0.9), rgba(26, 26, 46, 0.9));
+        border-bottom: 1px solid rgba(139, 92, 246, 0.18);
+      }
+
+      .term-dot {
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .term-dot.r { background: #ff5f57; }
+      .term-dot.y { background: #febc2e; }
+      .term-dot.g { background: #28c840; }
+
+      .terminal-title {
+        margin-left: 8px;
+        color: var(--text-muted);
+        font-size: 0.72rem;
+        letter-spacing: 0.5px;
+        flex: 1;
+        text-align: center;
+        padding-right: 50px;
+      }
+
+      .terminal-body {
+        padding: 14px 16px;
+        color: #d1d5db;
+        line-height: 1.65;
+        min-height: 200px;
+        max-height: 240px;
+        overflow: hidden;
+      }
+
+      .term-line { display: block; animation: termIn 0.25s ease; }
+      .term-line.cmd::before { content: '$ '; color: #22c55e; font-weight: 700; }
+      .term-line.cmd { color: #f1f5f9; }
+      .term-line.out { color: #94a3b8; }
+      .term-line.info { color: var(--purple-300); }
+      .term-line.ok { color: #4ade80; }
+      .term-line.json { color: #fbbf24; }
+
+      @keyframes termIn {
+        from { opacity: 0; transform: translateY(4px); }
+        to { opacity: 1; transform: none; }
+      }
+
+      .term-prompt {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: 4px;
+      }
+
+      .term-prompt .arrow { color: var(--purple-400); font-weight: 700; }
+      .term-prompt .branch { color: #4ade80; }
+      .term-prompt .cursor {
+        display: inline-block;
+        width: 8px;
+        height: 14px;
+        background: var(--purple-400);
+        margin-left: 2px;
+        vertical-align: middle;
+      }
+      .term-prompt .cursor.off { opacity: 0; }
+
+      /* ===================== TYPED TEXT ===================== */
+      .typed-wrap {
+        display: inline-flex;
+        align-items: center;
+        font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+        color: var(--purple-300);
+      }
+      .typed-wrap .prefix { color: #22c55e; margin-right: 6px; }
+      .typed-cursor {
+        display: inline-block;
+        width: 9px;
+        height: 1.05rem;
+        background: var(--purple-400);
+        margin-left: 3px;
+        vertical-align: middle;
+        box-shadow: 0 0 8px rgba(139, 92, 246, 0.6);
+      }
+      .typed-cursor.off { opacity: 0; }
+
+      /* ===================== GIT LOG TERMINAL ===================== */
+      .gitlog-terminal {
+        margin-top: 3rem;
+        max-width: 760px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .gitlog-line {
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+        padding: 3px 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        animation: termIn 0.4s ease both;
+      }
+      .gitlog-line .hash { color: #fbbf24; font-weight: 700; }
+      .gitlog-line .branch {
+        color: #4ade80;
+        background: rgba(34, 197, 94, 0.1);
+        padding: 1px 8px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+      }
+      .gitlog-line .msg { color: #cbd5e1; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+
+      /* ===================== STATUS BAR ===================== */
+      .status-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 26px;
+        background: linear-gradient(90deg, var(--purple-700), var(--purple-600));
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 14px;
+        font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+        font-size: 0.72rem;
+        z-index: 999;
+        box-shadow: 0 -4px 20px rgba(139, 92, 246, 0.3);
+      }
+
+      .status-left, .status-right { display: flex; gap: 14px; align-items: center; }
+
+      .status-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        opacity: 0.95;
+      }
+
+      .status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #22c55e;
+        box-shadow: 0 0 6px #22c55e;
+        animation: blink 1.6s ease-in-out infinite;
+      }
+
+      /* offset content for status bar */
+      footer { padding-bottom: 3.5rem; }
 
       /* ===================== HERO ===================== */
       #inicio {
@@ -944,7 +1185,7 @@
         >${t}</a>
       </li>
     `}_techPills(e){return e.map(e=>N`<span class="tech-pill">${e}</span>`)}_skillTags(e){return e.map(e=>N`<span class="skill-tag">${e}</span>`)}_timelineItem(e,t,n,r,i){return N`
-      <div class="timeline-item">
+      <div class="timeline-item reveal">
         <div class="timeline-card">
           <div class="timeline-header">
             <span class="timeline-role">${e}</span>
@@ -959,7 +1200,68 @@
           </div>
         </div>
       </div>
+    `}_renderCodeRain(){let e=[`const dev = "Karen";`,`function() { }`,`<App />`,`await fetch()`,`git push`,`npm run`,`docker up`,`export default`,`return <div/>`,`useState()`,`0xDEADBEEF`,`() => {}`,`SELECT *`,`POST /api`,`try { } catch`,`import React`,`while(true)`,`class Dev {}`],t=[];for(let n=0;n<18;n+=1){let r=n/18*100+Math.random()*4,i=8+Math.random()*10,a=-Math.random()*i,o=e[n%e.length];t.push(N`<span style="left:${r}%; animation-duration:${i}s; animation-delay:${a}s;">${o}</span>`)}return N`<div class="code-rain">${t}</div>`}_renderFloatingSnippets(){return N`
+      <div class="floating-snippets">
+        ${[{txt:`{ stack: "fullstack" }`,top:`12%`,left:`6%`,dur:11},{txt:`await ship()`,top:`70%`,left:`4%`,dur:9},{txt:`<Component />`,top:`20%`,left:`85%`,dur:13},{txt:`return success;`,top:`65%`,left:`88%`,dur:10},{txt:`// TODO: deploy`,top:`40%`,left:`92%`,dur:14}].map(e=>N`<div class="float-snip" style="top:${e.top}; left:${e.left}; animation-duration:${e.dur}s;">${e.txt}</div>`)}
+      </div>
+    `}_renderTerminal(){return N`
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="term-dot r"></span>
+          <span class="term-dot y"></span>
+          <span class="term-dot g"></span>
+          <span class="terminal-title">karen@dev: ~/portfolio</span>
+        </div>
+        <div class="terminal-body">
+          ${this.consoleLines.map(e=>N`<span class="term-line ${e.type}">${e.text}</span>`)}
+          <div class="term-prompt">
+            <span class="branch">main</span>
+            <span class="arrow">❯</span>
+            <span class="cursor ${this.cursorBlink?``:`off`}"></span>
+          </div>
+        </div>
+      </div>
+    `}_renderGitLog(){return N`
+      <div class="terminal gitlog-terminal reveal">
+        <div class="terminal-bar">
+          <span class="term-dot r"></span>
+          <span class="term-dot y"></span>
+          <span class="term-dot g"></span>
+          <span class="terminal-title">git log --oneline --graph</span>
+        </div>
+        <div class="terminal-body" style="max-height: none;">
+          <span class="term-line cmd">git log --oneline --decorate</span>
+          ${this._gitLog.map((e,t)=>N`
+              <div class="gitlog-line" style="animation-delay:${t*.08}s">
+                <span class="hash">${e.hash}</span>
+                <span class="branch">${e.branch}</span>
+                <span class="msg">${e.msg}</span>
+              </div>
+            `)}
+          <div class="term-prompt">
+            <span class="branch">main</span>
+            <span class="arrow">❯</span>
+            <span class="cursor ${this.cursorBlink?``:`off`}"></span>
+          </div>
+        </div>
+      </div>
+    `}_renderStatusBar(){return N`
+      <div class="status-bar">
+        <div class="status-left">
+          <span class="status-item"><span class="status-dot"></span> main</span>
+          <span class="status-item">⎇ ${this._roles[this.typedRole]}</span>
+          <span class="status-item">UTF-8</span>
+          <span class="status-item">LF</span>
+        </div>
+        <div class="status-right">
+          <span class="status-item">CPU ${this.cpuLoad}%</span>
+          <span class="status-item">⏱ ${this._fmtUptime()}</span>
+          <span class="status-item">v1.0.0</span>
+          <span class="status-item">🟢 Online</span>
+        </div>
+      </div>
     `}render(){let e=this.t;return N`
+      ${this._renderCodeRain()}
       <!-- NAVIGATION -->
       <nav class="${this.headerScrolled?`scrolled`:``}">
         <div class="nav-logo" @click="${()=>this._scrollTo(`inicio`)}">KG</div>
@@ -989,6 +1291,7 @@
       <section id="inicio">
         <div class="hero-bg"></div>
         <div class="hero-grid"></div>
+        ${this._renderFloatingSnippets()}
         <div class="hero-content">
           <div class="hero-photo-wrapper">
             <div class="hero-photo-ring">
@@ -1002,7 +1305,13 @@
             <h1 class="hero-title">
               Karen Brigith<br /><span class="purple">Gonzaga Rivas</span>
             </h1>
-            <p class="hero-subtitle">${e.hero.subtitle}</p>
+            <p class="hero-subtitle">
+              <span class="typed-wrap">
+                <span class="prefix">$</span>
+                <span>${this.typedText}</span>
+                <span class="typed-cursor ${this.cursorBlink?``:`off`}"></span>
+              </span>
+            </p>
             <p class="hero-description">${e.hero.description}</p>
             <div class="hero-actions">
               <a class="btn btn-primary" href="mailto:brigithgonzaga501@gmail.com">${e.hero.cta}</a>
@@ -1021,6 +1330,9 @@
                 <div class="stat-number">+5</div>
                 <div class="stat-label">${e.hero.statProjects}</div>
               </div>
+            </div>
+            <div style="margin-top: 2rem;">
+              ${this._renderTerminal()}
             </div>
           </div>
         </div>
@@ -1057,22 +1369,22 @@
             </div>
           </div>
           <div class="about-cards">
-            <div class="about-card">
+            <div class="about-card reveal">
               <div class="about-card-icon">${this._icon(`code`)}</div>
               <h4>Full Stack</h4>
               <p>${e.about.cardFullstack}</p>
             </div>
-            <div class="about-card">
+            <div class="about-card reveal delay-1">
               <div class="about-card-icon">${this._icon(`smartphone`)}</div>
               <h4>Mobile</h4>
               <p>${e.about.cardMobile}</p>
             </div>
-            <div class="about-card">
+            <div class="about-card reveal delay-2">
               <div class="about-card-icon">${this._icon(`checkCircle`)}</div>
               <h4>QA Testing</h4>
               <p>${e.about.cardQA}</p>
             </div>
-            <div class="about-card">
+            <div class="about-card reveal delay-3">
               <div class="about-card-icon">${this._icon(`clipboard`)}</div>
               <h4>${e.about.cardManagement}</h4>
               <p>${e.about.cardManagementDesc}</p>
@@ -1095,6 +1407,7 @@
           ${this._timelineItem(e.experience.job4Role,e.experience.job4Date,e.experience.job4Company,e.experience.job4Desc,[`Jakarta EE`,`Flutter`,`Dart`,`Java`])}
           ${this._timelineItem(e.experience.job5Role,e.experience.job5Date,e.experience.job5Company,e.experience.job5Desc,[`Django`,`Python`])}
         </div>
+        ${this._renderGitLog()}
       </section>
 
       <!-- ==================== HABILIDADES ==================== -->
@@ -1105,42 +1418,42 @@
           <div class="section-line"></div>
         </div>
         <div class="skills-grid">
-          <div class="skill-category">
+          <div class="skill-category reveal">
             <div class="skill-category-icon">${this._icon(`terminal`)}</div>
             <h3>${e.skills.languages}</h3>
             <div class="skill-tags">
               ${this._skillTags([`JavaScript`,`TypeScript`,`Python`,`Java`,`Dart`])}
             </div>
           </div>
-          <div class="skill-category">
+          <div class="skill-category reveal">
             <div class="skill-category-icon">${this._icon(`layers`)}</div>
             <h3>${e.skills.frontend}</h3>
             <div class="skill-tags">
               ${this._skillTags([`React`,`Next.js`,`Angular`,`Flutter`,`React Native`,`Tailwind CSS`,`HTML5`,`CSS3`])}
             </div>
           </div>
-          <div class="skill-category">
+          <div class="skill-category reveal">
             <div class="skill-category-icon">${this._icon(`server`)}</div>
             <h3>${e.skills.backend}</h3>
             <div class="skill-tags">
               ${this._skillTags([`Pyramid`,`Cornice`,`SQLAlchemy`,`Node.js`,`Django`,`Jakarta EE`])}
             </div>
           </div>
-          <div class="skill-category">
+          <div class="skill-category reveal">
             <div class="skill-category-icon">${this._icon(`database`)}</div>
             <h3>${e.skills.databases}</h3>
             <div class="skill-tags">
               ${this._skillTags([`PostgreSQL`,`Redis`,`MySQL`])}
             </div>
           </div>
-          <div class="skill-category">
+          <div class="skill-category reveal">
             <div class="skill-category-icon">${this._icon(`tool`)}</div>
             <h3>${e.skills.tools}</h3>
             <div class="skill-tags">
               ${this._skillTags([`Git`,`GitHub`,`GitLab`,`Jira`,`Scrum`,`VS Code`,`PyCharm`,`DataGrip`,`Claude Code`])}
             </div>
           </div>
-          <div class="skill-category">
+          <div class="skill-category reveal">
             <div class="skill-category-icon">${this._icon(`search`)}</div>
             <h3>${e.skills.qa}</h3>
             <div class="skill-tags">
@@ -1183,7 +1496,7 @@
         </div>
         <div class="certs-grid">
           ${[{name:`Gestion Agil de Proyectos con Scrum`,org:`Udemy`,date:`Ago. 2025`},{name:`C++ Essentials 1`,org:`Cisco Networking Academy`,date:`Ago. 2025`},{name:`GitHub Actions`,org:`Codigo Facilito`,date:`Jul. 2025`},{name:`Curso Profesional de Flutter`,org:`Codigo Facilito`,date:`Jul. 2025`},{name:`Fundamentos de Python 1`,org:`Cisco Networking Academy`,date:`May. 2023`}].map(e=>N`
-              <div class="cert-card">
+              <div class="cert-card reveal">
                 <div class="cert-icon">${this._icon(`award`)}</div>
                 <div class="cert-info">
                   <h4>${e.name}</h4>
@@ -1202,22 +1515,22 @@
           <div class="section-line"></div>
         </div>
         <div class="contact-grid">
-          <a class="contact-card" href="mailto:brigithgonzaga501@gmail.com">
+          <a class="contact-card reveal" href="mailto:brigithgonzaga501@gmail.com">
             <div class="contact-icon">${this._icon(`mail`)}</div>
             <span class="contact-label">Email</span>
             <span class="contact-value">brigithgonzaga501@gmail.com</span>
           </a>
-          <a class="contact-card" href="tel:+593980735353">
+          <a class="contact-card reveal" href="tel:+593980735353">
             <div class="contact-icon">${this._icon(`phone`)}</div>
             <span class="contact-label">${e.contact.phone}</span>
             <span class="contact-value">+593 98 073 5353</span>
           </a>
-          <a class="contact-card" href="https://linkedin.com/in/kbgr55" target="_blank" rel="noopener noreferrer">
+          <a class="contact-card reveal" href="https://linkedin.com/in/kbgr55" target="_blank" rel="noopener noreferrer">
             <div class="contact-icon">${this._icon(`linkedin`)}</div>
             <span class="contact-label">LinkedIn</span>
             <span class="contact-value">linkedin.com/in/kbgr55</span>
           </a>
-          <a class="contact-card" href="https://github.com/KBGR55" target="_blank" rel="noopener noreferrer">
+          <a class="contact-card reveal" href="https://github.com/KBGR55" target="_blank" rel="noopener noreferrer">
             <div class="contact-icon">${this._icon(`github`)}</div>
             <span class="contact-label">GitHub</span>
             <span class="contact-value">github.com/KBGR55</span>
@@ -1229,4 +1542,6 @@
       <footer>
         <p>&copy; 2026 Karen Brigith Gonzaga Rivas. ${e.footer}</p>
       </footer>
+
+      ${this._renderStatusBar()}
     `}};customElements.define(`app-root`,ge);
